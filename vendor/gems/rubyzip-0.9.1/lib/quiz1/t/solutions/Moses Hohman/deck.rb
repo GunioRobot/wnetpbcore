@@ -32,7 +32,7 @@ module Solitaire
 		end
 
 		def triple_cut!(cards)
-			raise "exactly two cards required for triple cut: #{cards}" unless cards.size==2 
+			raise "exactly two cards required for triple cut: #{cards}" unless cards.size==2
 			indices = [@order.index(cards[0].code), @order.index(cards[1].code)].sort
 			@order = @order[(indices[1]+1)..@order.size] + @order[indices[0]..indices[1]] + @order[0..(indices[0]-1)]
 		end
@@ -48,7 +48,7 @@ module Solitaire
 		def to_s
 			"<Deck: #{@order.inspect}>"
 		end
-		
+
 		def ==(val)
 			@order == val.order
 		end
@@ -68,7 +68,7 @@ module Solitaire
 
 		def Card.parse(code)
 			if (1..52).member?(code)
-				Card.new(Suit.by_value(code), code.offset_mod(13)) 
+				Card.new(Suit.by_value(code), code.offset_mod(13))
 			elsif (53..54).member?(code)
 				Card.joker(code+12)
 			elsif (65..66).member?(code)

@@ -63,13 +63,13 @@ class AssetsController < ApplicationController
       format.atom
     end
   end
-  
+
   def destroy
     asset = Asset.find(params[:id], :include => :titles)
     titles = asset.title
     asset.destroy
     @destroyed_id = params[:id]
-    
+
     respond_to do |format|
       format.html do
         flash[:warning] = "<strong>#{titles}</strong> has been deleted from the database."
@@ -96,7 +96,7 @@ class AssetsController < ApplicationController
     session[:search] = nil
     redirect_to :action => "index"
   end
-  
+
   def show
     alternate "application/xml", :format => "xml"
     if @asset
@@ -114,7 +114,7 @@ class AssetsController < ApplicationController
       redirect_to :action => 'index'
     end
   end
-  
+
   def new
     @asset = Asset.new
     respond_to do |format|
@@ -138,11 +138,11 @@ class AssetsController < ApplicationController
       end
     end
   end
-  
+
   def edit
     # just show form
   end
-  
+
   def create
     Asset.transaction do
       @asset = Asset.from_xml(params[:xml])
@@ -154,7 +154,7 @@ class AssetsController < ApplicationController
       flash[:message] = "Successfully created new Asset. You must now add an instantiation for the record to be valid PBCore."
     end
   end
-  
+
   def update
     @asset.transaction do
       parsed_asset = Asset.from_xml(params[:xml])

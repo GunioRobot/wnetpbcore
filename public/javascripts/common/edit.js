@@ -1,12 +1,12 @@
 /*
  * JavaScript/JQuery PBCore Editor!
- * 
+ *
  * Basic theory of operation: we load in an XML object and a JSON of
  * the various "picklists." Then, we make some form fields, using some
  * JQuery UI autocomplete magic to have comboboxes as appropriate. And
  * when the user presses Submit, a new XML document is generated and
  * posted to the server.
- * 
+ *
  * It is probably possible to adapt this JS for use outside the
  * wnetpbcore project. If you have a project for which this would be
  * helpful, let me know.
@@ -55,12 +55,12 @@ var FormEditor = (function($, undefined) {
 		},
 		'-webkit-border-radius': '10px',
 		'-moz-border-radius':	 '10px'
-	});	
+	});
   };
 
   var hide_spinner = function(){
 	$.unblockUI();
-  }; 
+  };
 
   var autocompleteopts = function(name) {
     var picklist = picklists[name.capitalize()], cache = {};
@@ -72,7 +72,7 @@ var FormEditor = (function($, undefined) {
             response(cache[request.term]);
             return;
           }
-          
+
           $.ajax({
             url: picklist,
             dataType: 'json',
@@ -98,7 +98,7 @@ var FormEditor = (function($, undefined) {
     }
     return undefined;
   };
-                    
+
   var makecombo = function(box) {
     var btn = document.createElement("button");
     // btn.type = "button";
@@ -119,9 +119,9 @@ var FormEditor = (function($, undefined) {
         box.focus();
       }
       return false;
-    });    
+    });
   };
- 
+
   var mkfields = function(div, pbcore, callback, rejector) {
     var $div = $("#" + div);
     xml.find(pbcore).each(function(i) {
@@ -273,7 +273,7 @@ var FormEditor = (function($, undefined) {
         boxlabel = $("<label>", {
           "text": picklistfield.capitalize().addspaces() + ":",
           "for": "combobox_" + field_counter
-        });        
+        });
       } else if (style === Style.TWO_PLAIN) {
         boxlabel = $("<label>", {
           "text": picklistfield.capitalize().addspaces() + ":",
@@ -347,7 +347,7 @@ var FormEditor = (function($, undefined) {
           maybe_valuelist();
         })();
       }
-      
+
       where.append(ret.fadeIn());
 
       if (textarea) {
@@ -731,7 +731,7 @@ var FormEditor = (function($, undefined) {
       obj_type = provided_obj_type;
       made_form = false;
 	  show_spinner($('.contentMiddle h1').text());
-	
+
       $.ajax({
         "url": $('link[rel="picklists"]').attr("href"),
         "dataType": "json",

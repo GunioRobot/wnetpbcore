@@ -23,24 +23,24 @@
 require 'uri'
 
 module RSolr::HTTPClient
-  
+
   module Adapter
     autoload :Curb, 'rsolr/http_client/adapter/curb'
     autoload :NetHTTP, 'rsolr/http_client/adapter/net_http'
   end
-  
+
   class UnkownAdapterError < RuntimeError
   end
-  
+
   class Base
 
     attr_reader :adapter
-  
+
     # requires an instace of RSolr::HTTPClient::*
     def initialize(adapter)
       @adapter = adapter
     end
-  
+
     # sends a GET reqest to the "path" variable
     # an optional hash of "params" can be used,
     # which is later transformed into a GET query string
@@ -52,7 +52,7 @@ module RSolr::HTTPClient
       end
       http_context
     end
-  
+
     # sends a POST request to the "path" variable
     # "data" is required, and must be a string
     # "params" is an optional hash for query string params...
@@ -65,9 +65,9 @@ module RSolr::HTTPClient
       end
       http_context
     end
-    
+
   end
-  
+
   # Factory for creating connections.
   # Can specify the connection type by
   # using :net_http or :curb for the first argument.
@@ -95,9 +95,9 @@ module RSolr::HTTPClient
       Base.new Adapter.const_get(klass).new(*args)
     end
   end
-  
+
   module Util
-    
+
     # Performs URI escaping so that you can construct proper
     # query strings faster.  Use this rather than the cgi.rb
     # version since it's faster.  (Stolen from Rack).
@@ -106,11 +106,11 @@ module RSolr::HTTPClient
         '%'+$1.unpack('H2'*$1.size).join('%').upcase
       }.tr(' ', '+')
     end
-    
+
     # creates and returns a url as a string
     # "url" is the base url
     # "params" is an optional hash of GET style query params
-    # "string_query" is an extra query string that will be appended to the 
+    # "string_query" is an extra query string that will be appended to the
     # result of "url" and "params".
     def build_url(url='', params={}, string_query='')
       queries = [string_query, hash_to_query(params)]
@@ -118,14 +118,14 @@ module RSolr::HTTPClient
       url += "?#{queries.join('&')}" unless queries.empty?
       url
     end
-    
+
     # converts a key value pair to an escaped string:
     # Example:
     # build_param(:id, 1) == "id=1"
     def build_param(k,v)
       "#{escape(k)}=#{escape(v)}"
     end
-    
+
     #
     # converts hash into URL query string, keys get an alpha sort
     # if a value is an array, the array values get mapped to the same key:
@@ -143,7 +143,7 @@ module RSolr::HTTPClient
         end
       }.join("&")
     end
-    
+
   end
-  
+
 end

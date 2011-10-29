@@ -5,13 +5,13 @@ require 'rubygems'
 $: << File.dirname(__FILE__) unless $:.include?(File.dirname(__FILE__))
 
 module RSolr
-  
+
   VERSION = '0.9.5'
-  
+
   autoload :Message, 'rsolr/message'
   autoload :Connection, 'rsolr/connection'
   autoload :HTTPClient, 'rsolr/http_client'
-  
+
   # Factory for creating connections.
   # 2 modes of argument operations:
   #   1. first argument is solr-adapter type, second arg is options hash for solr-adapter instance.
@@ -39,28 +39,28 @@ module RSolr
     adapter = adapter_class.new(*opts)
     RSolr::Connection::Base.new(adapter)
   end
-  
+
   # A module that contains string related methods
   module Char
-    
+
     # escape - from the solr-ruby library
     # RSolr.escape('asdf')
     # backslash everything that isn't a word character
     def escape(value)
       value.gsub(/(\W)/, '\\\\\1')
     end
-    
+
   end
-  
+
   # send the escape method into the Connection class ->
   # solr = RSolr.connect
   # solr.escape('asdf')
   RSolr::Connection::Base.send(:include, Char)
-  
+
   # bring escape into this module (RSolr) -> RSolr.escape('asdf')
   extend Char
-  
+
   # RequestError is a common/generic exception class used by the adapters
   class RequestError < RuntimeError; end
-  
+
 end

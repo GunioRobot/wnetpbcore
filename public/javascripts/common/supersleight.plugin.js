@@ -5,7 +5,7 @@ jQuery.fn.supersleight = function(settings) {
 		shim: 'x.gif',
 		apply_positioning: true
 	}, settings);
-	
+
 	return this.each(function(){
 		if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) < 7 && parseInt(jQuery.browser.version, 10) > 4) {
 			jQuery(this).find('*').andSelf().each(function(i,obj) {

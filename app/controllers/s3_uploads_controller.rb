@@ -5,7 +5,7 @@ class S3UploadsController < ApplicationController
   include S3SwfUpload::Signature
 
   filter_access_to :index, :context => :instantiations, :require => :video
-  
+
   def index
     bucket          = S3SwfUpload::S3Config.bucket
     access_key_id   = S3SwfUpload::S3Config.access_key_id
@@ -16,7 +16,7 @@ class S3UploadsController < ApplicationController
     https           = 'false'
     expiration_date = 1.hours.from_now.utc.strftime('%Y-%m-%dT%H:%M:%S.000Z')
 
-    policy_doc = {                               
+    policy_doc = {
       :expiration => expiration_date,
       :conditions => [
                       {:bucket => bucket},

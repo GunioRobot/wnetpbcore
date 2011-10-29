@@ -8,12 +8,12 @@ class InstantiationsController < ApplicationController
   param_parsers[Mime::XML] = Proc.new do |data|
     {:xml => data}
   end
-  
+
   def index
     @instantiations = @asset.instantiations
     @templates = Instantiation.templates
   end
-  
+
   def new
     if (params[:template_id].nil? || params[:template_id].empty?)
       @instantiation = Instantiation.new(:asset => @asset)
@@ -76,7 +76,7 @@ class InstantiationsController < ApplicationController
       redirect_to :action => 'thumbnail'
     end
   end
-  
+
   def create
     @instantiation = Instantiation.from_xml(params[:xml])
     uuid = @instantiation.format_ids.detect{|fid| fid.format_identifier_source == FormatIdentifierSource::OUR_UUID_SOURCE}
@@ -109,11 +109,11 @@ class InstantiationsController < ApplicationController
       end
     end
   end
-  
+
   def edit
     @instantiation = @asset.instantiations.find(params[:id])
   end
-  
+
   def update
     @instantiation = @asset.instantiations.find(params[:id])
     @instantiation.transaction do

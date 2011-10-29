@@ -53,7 +53,7 @@ module MIME
     LTSW_URL      = "http://www.ltsw.se/knbase/internet/%s.htp"
     CONTACT_URL   = "http://www.iana.org/assignments/contact-people.htm#%s"
 
-    # Returns +true+ if the simplified type matches the current 
+    # Returns +true+ if the simplified type matches the current
     def like?(other)
       if other.respond_to?(:simplified)
         @simplified == other.simplified
@@ -102,7 +102,7 @@ module MIME
     #   x-chemical/x-pdb  => pdb
     attr_reader :sub_type
     # Returns the media type of the unmodified MIME type.
-    # 
+    #
     #   text/plain        => plain
     #   x-chemical/x-pdb  => x-pdb
     attr_reader :raw_sub_type
@@ -149,7 +149,7 @@ module MIME
     # The regexp for the operating system that this MIME::Type is specific
     # to.
     attr_accessor :system
-    remove_method :system= ; 
+    remove_method :system= ;
     def system=(os) #:nodoc:
       if os.nil? or os.kind_of?(Regexp)
         @system = os
@@ -199,7 +199,7 @@ module MIME
       end
     end
 
-    # The encoded URL list for this MIME::Type. See #urls for 
+    # The encoded URL list for this MIME::Type. See #urls for
     attr_accessor :url
     # The decoded URL list for this MIME::Type.
     # The special URL value IANA will be translated into:
@@ -317,7 +317,7 @@ module MIME
       #   end
       def from_hash(hash) #:yields MIME::Type.new:
         type = {}
-        hash.each_pair do |k, v| 
+        hash.each_pair do |k, v|
           type[k.to_s.tr('-A-Z', '_a-z').to_sym] = v
         end
 
@@ -1356,47 +1356,47 @@ text/xml-external-parsed-entity 'RFC3023
 vms:text/plain @doc :8bit
 
   # Registered: video/*
-video/3gpp @3gp,3gpp 'RFC3839,DRAFT:draft-gellens-mime-bucket 
-video/3gpp-tt 'DRAFT:draft-ietf-avt-rtp-3gpp-timed-text 
-video/3gpp2 'DRAFT:draft-garudadri-avt-3gpp2-mime 
-video/BMPEG 'RFC3555 
-video/BT656 'RFC3555 
-video/CelB 'RFC3555 
-video/DV 'RFC3189 
-video/H261 'RFC3555 
-video/H263 'RFC3555 
-video/H263-1998 'RFC3555 
-video/H263-2000 'RFC3555 
-video/H264 'RFC3984 
-video/JPEG 'RFC3555 
-video/MJ2 @mj2,mjp2 'RFC3745 
-video/MP1S 'RFC3555 
-video/MP2P 'RFC3555 
-video/MP2T 'RFC3555 
-video/mp4 'DRAFT:draft-lim-mpeg4-mime 
-video/MP4V-ES 'RFC3016 
-video/mpeg @mp2,mpe,mp3g,mpg :base64 'RFC2045,RFC2046 
-video/mpeg4-generic 'RFC3640 
-video/MPV 'RFC3555 
-video/nv 'RFC3555 
-video/parityfec 'RFC3009 
-video/pointer 'RFC2862 
-video/quicktime @qt,mov :base64 'IANA,[Lindner] 
-video/raw 'RFC4175 
-video/rtx 'DRAFT:draft-ietf-avt-rtp-retransmission 
-video/SMPTE292M 'RFC3497 
-video/vnd.dlna.mpeg-tts 'IANA,[Heredia] 
-video/vnd.fvt 'IANA,[Fuldseth] 
-video/vnd.motorola.video 'IANA,[McGinty] 
-video/vnd.motorola.videop 'IANA,[McGinty] 
-video/vnd.mpegurl @mxu,m4u :8bit 'IANA,[Recktenwald] 
-video/vnd.nokia.interleaved-multimedia @nim 'IANA,[Kangaslampi] 
-video/vnd.objectvideo @mp4 'IANA,[Clark] 
-video/vnd.sealed.mpeg1 @s11 'IANA,[Petersen] 
-video/vnd.sealed.mpeg4 @smpg,s14 'IANA,[Petersen] 
-video/vnd.sealed.swf @sswf,ssw 'IANA,[Petersen] 
-video/vnd.sealedmedia.softseal.mov @smov,smo,s1q 'IANA,[Petersen] 
-video/vnd.vivo @viv,vivo 'IANA,[Wolfe] 
+video/3gpp @3gp,3gpp 'RFC3839,DRAFT:draft-gellens-mime-bucket
+video/3gpp-tt 'DRAFT:draft-ietf-avt-rtp-3gpp-timed-text
+video/3gpp2 'DRAFT:draft-garudadri-avt-3gpp2-mime
+video/BMPEG 'RFC3555
+video/BT656 'RFC3555
+video/CelB 'RFC3555
+video/DV 'RFC3189
+video/H261 'RFC3555
+video/H263 'RFC3555
+video/H263-1998 'RFC3555
+video/H263-2000 'RFC3555
+video/H264 'RFC3984
+video/JPEG 'RFC3555
+video/MJ2 @mj2,mjp2 'RFC3745
+video/MP1S 'RFC3555
+video/MP2P 'RFC3555
+video/MP2T 'RFC3555
+video/mp4 'DRAFT:draft-lim-mpeg4-mime
+video/MP4V-ES 'RFC3016
+video/mpeg @mp2,mpe,mp3g,mpg :base64 'RFC2045,RFC2046
+video/mpeg4-generic 'RFC3640
+video/MPV 'RFC3555
+video/nv 'RFC3555
+video/parityfec 'RFC3009
+video/pointer 'RFC2862
+video/quicktime @qt,mov :base64 'IANA,[Lindner]
+video/raw 'RFC4175
+video/rtx 'DRAFT:draft-ietf-avt-rtp-retransmission
+video/SMPTE292M 'RFC3497
+video/vnd.dlna.mpeg-tts 'IANA,[Heredia]
+video/vnd.fvt 'IANA,[Fuldseth]
+video/vnd.motorola.video 'IANA,[McGinty]
+video/vnd.motorola.videop 'IANA,[McGinty]
+video/vnd.mpegurl @mxu,m4u :8bit 'IANA,[Recktenwald]
+video/vnd.nokia.interleaved-multimedia @nim 'IANA,[Kangaslampi]
+video/vnd.objectvideo @mp4 'IANA,[Clark]
+video/vnd.sealed.mpeg1 @s11 'IANA,[Petersen]
+video/vnd.sealed.mpeg4 @smpg,s14 'IANA,[Petersen]
+video/vnd.sealed.swf @sswf,ssw 'IANA,[Petersen]
+video/vnd.sealedmedia.softseal.mov @smov,smo,s1q 'IANA,[Petersen]
+video/vnd.vivo @viv,vivo 'IANA,[Wolfe]
 
   # Unregistered: application/*
 !application/x-troff 'LTSW =use-instead:text/troff

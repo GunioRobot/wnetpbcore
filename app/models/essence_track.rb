@@ -5,7 +5,7 @@ class EssenceTrack < ActiveRecord::Base
   belongs_to :essence_track_identifier_source
 
   DISPLAY_FIELDS = ["Identifier", "Standard", "Encoding", "Data Rate", "Time Start", "Duration", "Bit Depth", "Sampling Rate", "Frame Size", "Aspect Ratio", "Frame Rate", "Language", "Annotation"].map{|f| [f, ("essence_track_" + f.gsub(' ', '').underscore).to_sym]}.freeze
-  
+
   xml_string "essenceTrackType"
   xml_string "essenceTrackIdentifier"
   xml_string "essenceTrackIdentifierSource"

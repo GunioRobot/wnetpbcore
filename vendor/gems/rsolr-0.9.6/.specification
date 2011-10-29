@@ -1,39 +1,39 @@
---- !ruby/object:Gem::Specification 
+--- !ruby/object:Gem::Specification
 name: rsolr
-version: !ruby/object:Gem::Version 
+version: !ruby/object:Gem::Version
   version: 0.9.6
 platform: ruby
-authors: 
+authors:
 - Matt Mitchell
-autorequire: 
+autorequire:
 bindir: bin
 cert_chain: []
 
 date: 2009-09-12 00:00:00 -04:00
-default_executable: 
-dependencies: 
-- !ruby/object:Gem::Dependency 
+default_executable:
+dependencies:
+- !ruby/object:Gem::Dependency
   name: builder
   type: :runtime
-  version_requirement: 
-  version_requirements: !ruby/object:Gem::Requirement 
-    requirements: 
+  version_requirement:
+  version_requirements: !ruby/object:Gem::Requirement
+    requirements:
     - - ">="
-      - !ruby/object:Gem::Version 
+      - !ruby/object:Gem::Version
         version: 2.1.2
-    version: 
+    version:
 description: RSolr is a Ruby gem for working with Apache Solr!
 email: goodieboy@gmail.com
 executables: []
 
 extensions: []
 
-extra_rdoc_files: 
+extra_rdoc_files:
 - LICENSE
 - Rakefile
 - README.rdoc
 - CHANGES.txt
-files: 
+files:
 - examples/http.rb
 - examples/direct.rb
 - lib/rsolr.rb
@@ -65,32 +65,32 @@ has_rdoc: true
 homepage: http://github.com/mwmitchell/rsolr
 licenses: []
 
-post_install_message: 
+post_install_message:
 rdoc_options: []
 
-require_paths: 
+require_paths:
 - bin
 - lib
-required_ruby_version: !ruby/object:Gem::Requirement 
-  requirements: 
+required_ruby_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
+    - !ruby/object:Gem::Version
       version: "0"
-  version: 
-required_rubygems_version: !ruby/object:Gem::Requirement 
-  requirements: 
+  version:
+required_rubygems_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
+    - !ruby/object:Gem::Version
       version: "0"
-  version: 
+  version:
 requirements: []
 
-rubyforge_project: 
+rubyforge_project:
 rubygems_version: 1.3.5
-signing_key: 
+signing_key:
 specification_version: 3
 summary: A Ruby client for Apache Solr
-test_files: 
+test_files:
 - test/connection/direct_test.rb
 - test/connection/http_test.rb
 - test/connection/test_methods.rb

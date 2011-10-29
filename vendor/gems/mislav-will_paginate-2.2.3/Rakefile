@@ -41,14 +41,14 @@ desc %{Test everything with Rails 1.2.x and 2.0.x gems}
 task :test_all do
   all = Rake::Task['test_full']
   ENV['RAILS_VERSION'] = '~>1.2.6'
-  all.invoke 
+  all.invoke
   # reset the invoked flag
   %w( test_full test test_mysql test_postgres ).each do |name|
     Rake::Task[name].instance_variable_set '@already_invoked', false
   end
   # do it again
   ENV['RAILS_VERSION'] = '~>2.0.2'
-  all.invoke 
+  all.invoke
 end
 
 desc 'Generate RDoc documentation for the will_paginate plugin.'
@@ -58,14 +58,14 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
     exclude('lib/will_paginate/named_scope*').
     exclude('lib/will_paginate/array.rb').
     exclude('lib/will_paginate/version.rb')
-    
+
   rdoc.rdoc_files.add(files)
   rdoc.main = "README.rdoc" # page to start on
   rdoc.title = "will_paginate documentation"
-  
+
   templates = %w[/Users/chris/ruby/projects/err/rock/template.rb /var/www/rock/template.rb]
   rdoc.template = templates.find { |t| File.exists? t }
-  
+
   rdoc.rdoc_dir = 'doc' # rdoc output folder
   rdoc.options << '--inline-source'
   rdoc.options << '--charset=UTF-8'
@@ -76,7 +76,7 @@ task :manifest do
   list = Dir['**/*'].sort
   spec_file = Dir['*.gemspec'].first
   list -= [spec_file]
-  
+
   File.read('.gitignore').each_line do |glob|
     glob = glob.chomp.sub(/^\//, '')
     list -= Dir[glob]
@@ -90,7 +90,7 @@ task :manifest do
     bunch = $2 ? list.grep(/^test\//) : list
     '%s%%w(%s)' % [assignment, bunch.join(' ')]
   end
-    
+
   File.open(spec_file,   'w') {|f| f << spec }
   File.open('.manifest', 'w') {|f| f << list.join("\n") }
 end
@@ -105,6 +105,6 @@ task :rcov do
                  lib/will_paginate/core_ext.rb
                  lib/will_paginate.rb
                  rails* )
-  
+
   system %[rcov -Itest:lib test/*.rb -x #{excludes.join(',')}]
 end

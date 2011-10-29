@@ -7,7 +7,7 @@ module WillPaginate
   # pagination links for the given collection. The helper itself is lightweight
   # and serves only as a wrapper around link renderer instantiation; the
   # renderer then does all the hard work of generating the HTML.
-  # 
+  #
   # == Global options for helpers
   #
   # Options for pagination helpers are optional and get their default values from the
@@ -38,7 +38,7 @@ module WillPaginate
     # Renders Digg/Flickr-style pagination for a WillPaginate::Collection
     # object. Nil is returned if there is only one page in total; no point in
     # rendering the pagination in that case...
-    # 
+    #
     # ==== Options
     # * <tt>:class</tt> -- CSS class name for the generated DIV (default: "pagination")
     # * <tt>:prev_label</tt> -- default: "« Previous"
@@ -59,7 +59,7 @@ module WillPaginate
     #
     # All options beside listed ones are passed as HTML attributes to the container
     # element for pagination links (the DIV). For example:
-    # 
+    #
     #   <%= will_paginate @posts, :id => 'wp_posts' %>
     #
     # ... will result in:
@@ -89,7 +89,7 @@ module WillPaginate
       end
       # early exit if there is nothing to render
       return nil unless WillPaginate::ViewHelpers.total_pages_for_collection(collection) > 1
-      
+
       options = options.symbolize_keys.reverse_merge WillPaginate::ViewHelpers.pagination_options
       # create the renderer instance
       renderer_class = options[:renderer].to_s.constantize
@@ -97,10 +97,10 @@ module WillPaginate
       # render HTML for pagination
       renderer.to_html
     end
-    
+
     # Wrapper for rendering pagination links at both top and bottom of a block
     # of content.
-    # 
+    #
     #   <% paginated_section @posts do %>
     #     <ol id="posts">
     #       <% for post in @posts %>
@@ -184,7 +184,7 @@ module WillPaginate
       # previous/next buttons
       links.unshift page_link_or_span(@collection.previous_page, %w(disabled prev_page), @options[:prev_label])
       links.push    page_link_or_span(@collection.next_page,     %w(disabled next_page), @options[:next_label])
-      
+
       html = links.join(@options[:separator])
       @options[:container] ? @template.content_tag(:div, html, html_attributes) : html
     end
@@ -200,7 +200,7 @@ module WillPaginate
       end
       @html_attributes
     end
-    
+
   protected
 
     # The gap in page links is represented by:
@@ -209,7 +209,7 @@ module WillPaginate
     def gap_marker
       '<span class="gap">&hellip;</span>'
     end
-    
+
     # Collects link items for visible page numbers.
     def windowed_links
       prev = nil
@@ -229,7 +229,7 @@ module WillPaginate
       inner_window, outer_window = @options[:inner_window].to_i, @options[:outer_window].to_i
       window_from = current_page - inner_window
       window_to = current_page + inner_window
-      
+
       # adjust lower or upper limit if other is out of bounds
       if window_to > total_pages
         window_from -= window_to - total_pages
@@ -240,7 +240,7 @@ module WillPaginate
         window_from = 1
         window_to = total_pages if window_to > total_pages
       end
-      
+
       visible   = (1..total_pages).to_a
       left_gap  = (2 + outer_window)...window_from
       right_gap = (window_to + 1)...(total_pages - outer_window)
@@ -249,11 +249,11 @@ module WillPaginate
 
       visible
     end
-    
+
     def page_link_or_span(page, span_class, text = nil)
       text ||= page.to_s
       classnames = Array[*span_class]
-      
+
       if page and page != current_page
         @template.link_to text, url_for(page), :rel => rel_value(page), :class => classnames[1]
       else
@@ -269,18 +269,18 @@ module WillPaginate
         # page links should preserve GET parameters
         stringified_merge @url_params, @template.params if @template.request.get?
         stringified_merge @url_params, @options[:params] if @options[:params]
-        
+
         if complex = param_name.index(/[^\w-]/)
           page_param = (defined?(CGIMethods) ? CGIMethods : ActionController::AbstractRequest).
             parse_query_parameters("#{param_name}=#{page}")
-          
+
           stringified_merge @url_params, page_param
         else
           @url_params[param_name] = 1
         end
 
         url = @template.url_for(@url_params)
-        
+
         if complex
           @url_string = url.sub(%r!([?&]#{CGI.escape param_name}=)#{page}!, '\1@')
           return url
@@ -333,7 +333,7 @@ module WillPaginate
             return
           end
         end
-        
+
         target[key] = value
       end
     end

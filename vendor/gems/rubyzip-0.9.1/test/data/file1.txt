@@ -8,7 +8,7 @@ CXXFLAGS= -g
 noinst_LIBRARIES = libzipios.a
 
 bin_PROGRAMS = test_zip test_izipfilt test_izipstream
-# test_flist 
+# test_flist
 
 libzipios_a_SOURCES = backbuffer.h    fcol.cpp           fcol.h           \
                       fcol_common.h   fcolexceptions.cpp fcolexceptions.h \

@@ -5,7 +5,7 @@ development:
   username: root
   password:
   socket: /tmp/mysql.sock
-  
+
 test:
   adapter: mysql
   encoding: utf8

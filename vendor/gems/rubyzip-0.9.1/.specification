@@ -1,18 +1,18 @@
---- !ruby/object:Gem::Specification 
+--- !ruby/object:Gem::Specification
 name: rubyzip
-version: !ruby/object:Gem::Version 
+version: !ruby/object:Gem::Version
   version: 0.9.1
 platform: ruby
-authors: 
+authors:
 - Thomas Sondergaard
-autorequire: 
+autorequire:
 bindir: bin
-cert_chain: 
+cert_chain:
 date: 2006-07-29 00:00:00 -04:00
-default_executable: 
+default_executable:
 dependencies: []
 
-description: 
+description:
 email: thomas(at)sondergaard.cc
 executables: []
 
@@ -20,7 +20,7 @@ extensions: []
 
 extra_rdoc_files: []
 
-files: 
+files:
 - README
 - NEWS
 - TODO
@@ -84,29 +84,29 @@ files:
 - lib/quiz1/t/solutions/Thomas Leitner/solitaire.rb
 has_rdoc: false
 homepage: http://rubyzip.sourceforge.net/
-post_install_message: 
+post_install_message:
 rdoc_options: []
 
-require_paths: 
+require_paths:
 - bin
 - lib
-required_ruby_version: !ruby/object:Gem::Requirement 
-  requirements: 
+required_ruby_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">"
-    - !ruby/object:Gem::Version 
+    - !ruby/object:Gem::Version
       version: 0.0.0
-  version: 
-required_rubygems_version: !ruby/object:Gem::Requirement 
-  requirements: 
+  version:
+required_rubygems_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
+    - !ruby/object:Gem::Version
       version: "0"
-  version: 
+  version:
 requirements: []
 
-rubyforge_project: 
+rubyforge_project:
 rubygems_version: 1.2.0
-signing_key: 
+signing_key:
 specification_version: 1
 summary: rubyzip is a ruby module for reading and writing zip files
 test_files: []

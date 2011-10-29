@@ -42,19 +42,19 @@ module Authorization
   # @proxy_options[:conditions] = [ 'foos_bazzes.attr = :foos_bazzes__id_0', { :foos_bazzes__id_0 => 1 } ]+
   #
   class ObligationScope < ActiveRecord::NamedScope::Scope
-    
+
     # Consumes the given obligation, converting it into scope join and condition options.
     def parse!( obligation )
       @current_obligation = obligation
       obligation_conditions[@current_obligation] ||= {}
       follow_path( obligation )
-      
+
       rebuild_condition_options!
       rebuild_join_options!
     end
-    
+
     protected
-    
+
     # Parses the next step in the association path.  If it's an association, we advance down the
     # path.  Otherwise, it's an attribute, and we need to evaluate it as a comparison operation.
     def follow_path( steps, past_steps = [] )
@@ -78,7 +78,7 @@ module Authorization
         raise "invalid obligation path #{[past_steps, steps].flatten}"
       end
     end
-    
+
     # At the end of every association path, we expect to see a comparison of some kind; for
     # example, +:attr => [ :is, :value ]+.
     #
@@ -90,7 +90,7 @@ module Authorization
 
       add_obligation_condition_for( past_steps, [attribute, operator, value] )
     end
-    
+
     # Adds the given expression to the current obligation's indicated path's conditions.
     #
     # Condition expressions must follow the format +[ <attribute>, <operator>, <value> ]+.
@@ -100,23 +100,23 @@ module Authorization
       obligation_conditions[@current_obligation] ||= {}
       ( obligation_conditions[@current_obligation][path] ||= Set.new ) << expression
     end
-    
+
     # Adds the given path to the list of obligation joins, if we haven't seen it before.
     def add_obligation_join_for( path )
       map_reflection_for( path ) if reflections[path].nil?
     end
-    
+
     # Returns the model associated with the given path.
     def model_for( path )
       reflection = reflection_for( path )
       reflection.respond_to?( :klass ) ? reflection.klass : reflection
     end
-    
+
     # Returns the reflection corresponding to the given path.
     def reflection_for( path )
       reflections[path] ||= map_reflection_for( path )
     end
-    
+
     # Returns a proper table alias for the given path.  This alias may be used in SQL statements.
     def table_alias_for( path )
       table_aliases[path] ||= map_table_alias_for( path )
@@ -125,7 +125,7 @@ module Authorization
     # Attempts to map a reflection for the given path.  Raises if already defined.
     def map_reflection_for( path )
       raise "reflection for #{path.inspect} already exists" unless reflections[path].nil?
-      
+
       reflection = path.empty? ? @proxy_scope : begin
         parent = reflection_for( path[0..-2] )
         parent.klass.reflect_on_association( path.last )
@@ -133,30 +133,30 @@ module Authorization
         parent.reflect_on_association( path.last )
       end
       raise "invalid path #{path.inspect}" if reflection.nil?
-      
+
       reflections[path] = reflection
       map_table_alias_for( path )  # Claim a table alias for the path.
-      
+
       reflection
     end
 
     # Attempts to map a table alias for the given path.  Raises if already defined.
     def map_table_alias_for( path )
       return "table alias for #{path.inspect} already exists" unless table_aliases[path].nil?
-      
+
       reflection = reflection_for( path )
       table_alias = reflection.table_name
       if table_aliases.values.include?( table_alias )
         max_length = reflection.active_record.connection.table_alias_length
         # Rails seems to pluralize reflection names
         table_alias = "#{reflection.name.to_s.pluralize}_#{reflection.active_record.table_name}".to(max_length-1)
-      end            
+      end
       while table_aliases.values.include?( table_alias )
         if table_alias =~ /\w(_\d+?)$/
           table_index = $1.succ
           table_alias = "#{table_alias[0..-(table_index.length+1)]}_#{table_index}"
         else
-          table_alias = "#{table_alias[0..(max_length-3)]}_2" 
+          table_alias = "#{table_alias[0..(max_length-3)]}_2"
         end
       end
       table_aliases[path] = table_alias
@@ -172,12 +172,12 @@ module Authorization
       # lets try to get the order of joins right
       @reflections ||= ActiveSupport::OrderedHash.new
     end
-    
+
     # Returns a hash mapping paths to proper table aliases to use in SQL statements.
     def table_aliases
       @table_aliases ||= {}
     end
-    
+
     # Parses all of the defined obligation conditions and defines the scope's :conditions option.
     def rebuild_condition_options!
       conds = []
@@ -227,7 +227,7 @@ module Authorization
       (delete_paths - used_paths).each {|path| reflections.delete(path)}
       @proxy_options[:conditions] = [ conds.join( " OR " ), binds ]
     end
-    
+
     # Parses all of the defined obligation joins and defines the scope's :joins or :includes option.
     # TODO: Support non-linear association paths.  Right now, we just break down the longest path parsed.
     def rebuild_join_options!
@@ -235,7 +235,7 @@ module Authorization
 
       reflections.keys.reverse.each do |path|
         next if path.empty?
-        
+
         existing_join = joins.find do |join|
           join.is_a?(Symbol) ? (join == path.first) : join.key?(path.first)
         end

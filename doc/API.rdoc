@@ -30,7 +30,7 @@ application or your web browser at /assets/opensearch.xml
 
 == Importing
 
-This documentation needs to be cleaned up a bit, but for now, note: 
+This documentation needs to be cleaned up a bit, but for now, note:
 
 To add an asset:
 

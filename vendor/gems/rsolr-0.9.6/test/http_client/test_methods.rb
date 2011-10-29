@@ -1,13 +1,13 @@
 module HTTPClientTestMethods
-  
+
   URL = 'http://localhost:8983/solr/'
-  
+
   def test_raise_unknown_adapter
     assert_raise RSolr::HTTPClient::UnkownAdapterError do
       c = RSolr::HTTPClient.connect(:blah, URL)
     end
   end
-  
+
   # the responses from the HTTPClient adapter should return the same hash structure
   def test_get_response
     headers = {}
@@ -22,7 +22,7 @@ module HTTPClientTestMethods
     assert_equal 'http://localhost:8983/solr/select?q=%2A%3A%2A', response[:url]
     assert_equal headers, response[:headers]
   end
-  
+
   def test_post_response
     headers = {"Content-Type" => 'text/xml; charset=utf-8'}
     data = '<add><doc><field name="id">1</field></doc></add>'
@@ -36,5 +36,5 @@ module HTTPClientTestMethods
     assert_equal 'http://localhost:8983/solr/update', response[:url]
     assert_equal headers, response[:headers]
   end
-  
+
 end

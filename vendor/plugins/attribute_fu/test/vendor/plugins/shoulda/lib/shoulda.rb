@@ -6,7 +6,7 @@ require 'shoulda/active_record_helpers'
 
 
 module Test # :nodoc: all
-  module Unit 
+  module Unit
     class TestCase
 
       include ThoughtBot::Shoulda::General

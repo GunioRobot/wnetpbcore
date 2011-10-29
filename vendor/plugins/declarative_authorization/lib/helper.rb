@@ -3,12 +3,12 @@ require File.dirname(__FILE__) + '/authorization.rb'
 
 module Authorization
   module AuthorizationHelper
-  
+
     # If the current user meets the given privilege, permitted_to? returns true
     # and yields to the optional block.  The attribute checks that are defined
     # in the authorization rules are only evaluated if an object is given
     # for context.
-    # 
+    #
     # Examples:
     #     <% permitted_to? :create, :users do %>
     #     <%= link_to 'New', new_user_path %>
@@ -23,16 +23,16 @@ module Authorization
     #     <% for user in @users %>
     #     <%= link_to 'Edit', edit_user_path(user) if permitted_to? :update, user %>
     #     <% end %>
-    # 
+    #
     def permitted_to? (privilege, object_or_sym = nil, &block)
       controller.permitted_to?(privilege, object_or_sym, &block)
     end
-  
+
     # While permitted_to? is used for authorization in views, in some cases
     # content should only be shown to some users without being concerned
-    # with authorization.  E.g. to only show the most relevant menu options 
+    # with authorization.  E.g. to only show the most relevant menu options
     # to a certain group of users.  That is what has_role? should be used for.
-    # 
+    #
     # Examples:
     #     <% has_role?(:sales) do %>
     #     <%= link_to 'All contacts', contacts_path %>
@@ -43,7 +43,7 @@ module Authorization
     #     <% else %>
     #     ...
     #     <% end %>
-    # 
+    #
     def has_role? (*roles, &block)
       controller.has_role?(*roles, &block)
     end

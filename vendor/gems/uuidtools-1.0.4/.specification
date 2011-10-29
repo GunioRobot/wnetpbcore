@@ -1,46 +1,46 @@
---- !ruby/object:Gem::Specification 
+--- !ruby/object:Gem::Specification
 name: uuidtools
-version: !ruby/object:Gem::Version 
+version: !ruby/object:Gem::Version
   version: 1.0.4
 platform: ruby
-authors: 
+authors:
 - Bob Aman
-autorequire: 
+autorequire:
 bindir: bin
 cert_chain: []
 
 date: 2008-09-29 00:00:00 -04:00
-default_executable: 
-dependencies: 
-- !ruby/object:Gem::Dependency 
+default_executable:
+dependencies:
+- !ruby/object:Gem::Dependency
   name: rake
   type: :runtime
-  version_requirement: 
-  version_requirements: !ruby/object:Gem::Requirement 
-    requirements: 
+  version_requirement:
+  version_requirements: !ruby/object:Gem::Requirement
+    requirements:
     - - ">="
-      - !ruby/object:Gem::Version 
+      - !ruby/object:Gem::Version
         version: 0.7.3
-    version: 
-- !ruby/object:Gem::Dependency 
+    version:
+- !ruby/object:Gem::Dependency
   name: rspec
   type: :runtime
-  version_requirement: 
-  version_requirements: !ruby/object:Gem::Requirement 
-    requirements: 
+  version_requirement:
+  version_requirements: !ruby/object:Gem::Requirement
+    requirements:
     - - ">="
-      - !ruby/object:Gem::Version 
+      - !ruby/object:Gem::Version
         version: 1.0.8
-    version: 
+    version:
 description: A simple universally unique ID generation library.
 email: bob@sporkmonger.com
 executables: []
 
 extensions: []
 
-extra_rdoc_files: 
+extra_rdoc_files:
 - README
-files: 
+files:
 - lib/uuidtools
 - lib/uuidtools/version.rb
 - lib/uuidtools.rb
@@ -65,30 +65,30 @@ files:
 - README
 has_rdoc: true
 homepage: http://uuidtools.rubyforge.org/
-post_install_message: 
-rdoc_options: 
+post_install_message:
+rdoc_options:
 - --main
 - README
-require_paths: 
+require_paths:
 - bin
 - lib
-required_ruby_version: !ruby/object:Gem::Requirement 
-  requirements: 
+required_ruby_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
+    - !ruby/object:Gem::Version
       version: "0"
-  version: 
-required_rubygems_version: !ruby/object:Gem::Requirement 
-  requirements: 
+  version:
+required_rubygems_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
+    - !ruby/object:Gem::Version
       version: "0"
-  version: 
+  version:
 requirements: []
 
 rubyforge_project: uuidtools
 rubygems_version: 1.2.0
-signing_key: 
+signing_key:
 specification_version: 2
 summary: UUID generator
 test_files: []

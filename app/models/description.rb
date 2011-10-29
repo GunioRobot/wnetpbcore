@@ -3,7 +3,7 @@ class Description < ActiveRecord::Base
   belongs_to :asset
   belongs_to :description_type
   stampable
-  
+
   xml_text_field :description
   xml_attributes "descriptionType", "descriptionTypeSource", "descriptionTypeRef", "descriptionTypeAnnotation", "segmentType", "segmentTypeSource", "segmentTypeRef", "segmentTypeAnnotation", "startTime", "endTime", "timeAnnotation", "annotation"
 

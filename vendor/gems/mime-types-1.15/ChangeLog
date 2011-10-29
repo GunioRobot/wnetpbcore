@@ -25,7 +25,7 @@ Ziegler <mime-types@halostatue.ca>.
 * Added two new best-guess implementations of functions found in Perl's
   MIME::Types implementation (1.13). Do not rely on these until the purpose
   and implementation is stabilised.
-* Updated the MIME list to reflect changes noted by 
+* Updated the MIME list to reflect changes noted by
   Ville Skyttä <ville.skytta@iki.fi>.
 * Added a new constant to MIME::Types, DATA_VERSION. This will allow the Ruby
   version number to be updated separately from the Perl version while keeping

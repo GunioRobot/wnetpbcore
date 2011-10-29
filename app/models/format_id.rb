@@ -10,7 +10,7 @@ class FormatId < ActiveRecord::Base
 
   validates_length_of :format_identifier, :minimum => 1
   validates_presence_of :format_identifier_source
-  
+
   xml_text_field :format_identifier
   xml_attributes "source" => :format_identifier_source
 

@@ -17,7 +17,7 @@
     if (s != null && e != null) { //setting range
       return this.each(function() {
         setPosition(this, s, e);
-      });      
+      });
     }
     else if (s != null) { //setting position
       return this.each(function() {
@@ -33,7 +33,7 @@
 
         r.moveEnd('character', el.value.length);
         var start = (r.text == '') ? el.value.length : el.value.lastIndexOf(r.text);
-        
+
         return [start, end];
       }
       else {

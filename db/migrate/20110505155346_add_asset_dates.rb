@@ -16,7 +16,7 @@ class AddAssetDates < ActiveRecord::Migration
       t.string  "name"
       t.boolean "visible", :default => false, :null => false
     end
-    
+
     # via http://metadataregistry.org/concept/list/vocabulary_id/162.html
     # Note that I excluded "date time stamp" as a dateType because it seems to dupe the record timestamp.
     # I'm not sure if that's the right thing to do. There are problably also other types needed here.
@@ -24,7 +24,7 @@ class AddAssetDates < ActiveRecord::Migration
       AssetDateType.create!(:name => dt, :visible=>true)
     end
 
-    # index for asset_date_types 
+    # index for asset_date_types
     add_index "asset_dates", "asset_id"
   end
 

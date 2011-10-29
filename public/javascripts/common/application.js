@@ -67,7 +67,7 @@ $(function() {
 	    if (flag)
 		tracks.highlight("slow");
 	    $this.find(".showhidelabel").text(flag ? "Hide" : "Show");
-	    
+
 	    return false;
 	};
     };

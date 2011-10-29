@@ -7,17 +7,17 @@ module ThoughtBot # :nodoc:
           # include ThoughtBot::Shoulda::General::InstanceMethods
         end
       end
-      
+
       module ClassMethods
         # Loads all fixture files (<tt>test/fixtures/*.yml</tt>)
         def load_all_fixtures
-          all_fixtures = Dir.glob(File.join(Test::Unit::TestCase.fixture_path, "*.yml")).collect do |f| 
+          all_fixtures = Dir.glob(File.join(Test::Unit::TestCase.fixture_path, "*.yml")).collect do |f|
             File.basename(f, '.yml').to_sym
           end
           fixtures *all_fixtures
         end
       end
-      
+
       # Prints a message to stdout, tagged with the name of the calling method.
       def report!(msg = "")
         puts("#{caller.first}: #{msg}")
@@ -67,7 +67,7 @@ module ThoughtBot # :nodoc:
         case x
         when Regexp: assert(collection.detect { |e| e =~ x }, msg)
         else         assert(collection.include?(x), msg)
-        end        
+        end
       end
 
       # Asserts that the given collection does not contain item x.  If x is a regular expression, ensure that
@@ -78,9 +78,9 @@ module ThoughtBot # :nodoc:
         case x
         when Regexp: assert(!collection.detect { |e| e =~ x }, msg)
         else         assert(!collection.include?(x), msg)
-        end        
+        end
       end
-      
+
       # Asserts that the given object can be saved
       #
       #  assert_save User.new(params)
@@ -95,7 +95,7 @@ module ThoughtBot # :nodoc:
       def assert_valid(obj)
         assert obj.valid?, "Errors: #{obj.errors.full_messages.join('; ')}"
       end
-      
+
       # Asserts that the block uses ActionMailer to send emails
       #
       #  assert_sends_email(2) { Mailer.deliver_messages }
@@ -113,7 +113,7 @@ module ThoughtBot # :nodoc:
       def assert_does_not_send_email(&blk)
         assert_sends_email 0, &blk
       end
-      
+
     end
   end
 end

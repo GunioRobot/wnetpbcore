@@ -1,7 +1,7 @@
 class Instantiation < ActiveRecord::Base
   include PbcoreXmlElement
   include ActionView::Helpers::NumberHelper
-  
+
   belongs_to :asset
   has_many :format_ids, :dependent => :destroy, :attributes => true
   has_many :instantiation_dates, :dependent => :destroy, :attributes => true
@@ -13,7 +13,7 @@ class Instantiation < ActiveRecord::Base
   has_many :annotations, :dependent => :destroy, :attributes => true
   has_many :borrowings, :dependent => :destroy
   stampable
-  
+
   attr_protected :asset, :asset_id, :uuid
 
   validates_presence_of :format_location
@@ -58,7 +58,7 @@ class Instantiation < ActiveRecord::Base
   xml_string "alternativeModes"
   xml_subelements "pbcoreEssenceTrack", :essence_tracks
   xml_subelements "instantiationAnnotation", :annotations
-  
+
   def identifier
     format_ids.map{|i| i.format_identifier}.join("; ")
   end

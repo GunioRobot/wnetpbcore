@@ -18,18 +18,18 @@ A Ruby client for Apache Solr. RSolr has been developed to be simple and extenda
   require 'rubygems'
   require 'rsolr'
   solr = RSolr.connect :url=>'http://solrserver.com'
-  
+
   # send a request to /select
   response = rsolr.select :q=>'*:*'
-  
+
   # send a request to a custom request handler; /catalog
   response = rsolr.request '/catalog', :q=>'*:*'
-  
+
   # alternative to above:
   response = rsolr.catalog :q=>'*:*'
-  
+
 To use a DirectSolrConnection (no http) in JRuby:
-  
+
   solr = RSolr.connect(:direct,
     :home_dir=>'/path/to/solr/home',
     :dist_dir=>'/path/to/solr/distribution'
@@ -47,11 +47,11 @@ Use the #select method to send requests to the /select handler:
   })
 
 The params sent into the method are sent to Solr as-is. The one exception is if a value is an array. When an array is used, multiple parameters are generated for the Solr query. Example:
-  
+
   solr.select :q=>'roses', :fq=>['red', 'violet']
 
 The above statement generates this Solr query:
-  
+
   ?q=roses&fq=red&fq=violet
 
 Use the #request method for a custom request handler path:
@@ -76,7 +76,7 @@ Multiple documents via #add
   solr.add documents
 
 When adding, you can also supply "add" xml element attributes and/or a block for manipulating other "add" related elements (docs and fields) when using the #add method:
-  
+
   doc = {:id=>1, :price=>1.00}
   add_attributes = {:allowDups=>false, :commitWithin=>10.0}
   solr.add(doc, add_attributes) do |doc|
@@ -136,7 +136,7 @@ You can specify the http client adapter:
 NOTE: The Net::Http is the default adapter.
 
 Example:
-  
+
   RSolr.connect(:adapter => :curb)
   RSolr.connect(:adapter => :net_http)
 
@@ -144,5 +144,5 @@ Intereseting read about Ruby's Net::HTTP library:
 http://apocryph.org/2008/11/09/more_indepth_analysis_ruby_http_client_performance
 
 NOTE: You can't use the :curb adapter under jRuby. To install curb:
-  
+
   sudo gem install curb

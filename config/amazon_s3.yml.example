@@ -7,12 +7,12 @@ development:
 
 test:
   bucket_name: test_bucket
-  access_key_id: 
-  secret_access_key: 
-  cloudfront_distro: 
+  access_key_id:
+  secret_access_key:
+  cloudfront_distro:
 
 production:
   bucket_name: production_bucket
-  access_key_id: 
-  secret_access_key: 
-  cloudfront_distro: 
+  access_key_id:
+  secret_access_key:
+  cloudfront_distro:

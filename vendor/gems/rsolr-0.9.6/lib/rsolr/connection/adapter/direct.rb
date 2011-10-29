@@ -6,11 +6,11 @@ require 'java'
 # Connection for JRuby + DirectSolrConnection
 #
 class RSolr::Connection::Adapter::Direct
-  
+
   include RSolr::HTTPClient::Util
-  
+
   attr_accessor :opts
-  
+
   # opts can be an instance of org.apache.solr.servlet.DirectSolrConnection
   # if opts is NOT an instance of org.apache.solr.servlet.DirectSolrConnection
   # then...
@@ -36,7 +36,7 @@ class RSolr::Connection::Adapter::Direct
       @opts = opts
     end
   end
-  
+
   # loads/imports the java dependencies
   # sets the @connection instance variable if it has not yet been set
   def connection
@@ -45,14 +45,14 @@ class RSolr::Connection::Adapter::Direct
       org.apache.solr.servlet.DirectSolrConnection.new(opts[:home_dir], @opts[:data_dir], nil)
     )
   end
-  
+
   def close
     if @connection
       @connection.close
       @connection=nil
     end
   end
-  
+
   # send a request to the connection
   # request '/select', :q=>'something'
   # request '/update', :wt=>:xml, '</commit>'
@@ -72,9 +72,9 @@ class RSolr::Connection::Adapter::Direct
       :data=>data,
     }
   end
-  
+
   protected
-  
+
   # require the jar files
   def require_jars(paths)
     paths = [paths] unless paths.is_a?(Array)
@@ -84,5 +84,5 @@ class RSolr::Connection::Adapter::Direct
       Dir[jar_pattern].each {|jar_file| require jar_file }
     end
   end
-  
+
 end

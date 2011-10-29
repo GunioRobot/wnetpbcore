@@ -17,7 +17,7 @@ OraXML.NAME = "OraXML";     // The name of this namespace
 OraXML.VERSION = 1.0;    // The version of this namespace
 
 /**
- * Create a new Document object.  If no arguments are specified, 
+ * Create a new Document object.  If no arguments are specified,
  * the document will be empty.  If a root tag is specified, the document
  * will contain that single root tag.  If the root tag has a namespace
  * prefix, the second argument must specify the URL that identifies the
@@ -26,7 +26,7 @@ OraXML.VERSION = 1.0;    // The version of this namespace
 OraXML.newDocument = function(rootTagName, namespaceURL) {
     if (!rootTagName) rootTagName = "";
     if (!namespaceURL) namespaceURL = "";
-    
+
     if (document.implementation && document.implementation.createDocument) {
         // This is the W3C standard way to do it
         return document.implementation.createDocument(namespaceURL,

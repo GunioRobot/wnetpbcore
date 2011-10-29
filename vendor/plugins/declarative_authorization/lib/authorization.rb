@@ -19,20 +19,20 @@ module Authorization
   # NilAttributeValueError is raised by Attribute#validate? when it hits a nil attribute value.
   # The exception is raised to ensure that the entire rule is invalidated.
   class NilAttributeValueError < AuthorizationError; end
-  
+
   AUTH_DSL_FILE = "#{RAILS_ROOT}/config/authorization_rules.rb"
-  
+
   # Controller-independent method for retrieving the current user.
   # Needed for model security where the current controller is not available.
   def self.current_user
     Thread.current["current_user"] || GuestUser.new
   end
-  
+
   # Controller-independent method for setting the current user.
   def self.current_user=(user)
     Thread.current["current_user"] = user
   end
-  
+
   @@ignore_access_control = false
   # For use in test cases only
   def self.ignore_access_control (state = nil) # :nodoc:
@@ -42,7 +42,7 @@ module Authorization
   def self.activate_authorization_rules_browser? # :nodoc:
     ::RAILS_ENV == 'development'
   end
-  
+
   # Authorization::Engine implements the reference monitor.  It may be used
   # for querying the permission and retrieving obligations under which
   # a certain privilege is granted for the current user.
@@ -50,7 +50,7 @@ module Authorization
   class Engine
     attr_reader :roles, :role_titles, :role_descriptions, :privileges,
       :privilege_hierarchy, :auth_rules, :role_hierarchy, :rev_priv_hierarchy
-    
+
     # If +reader+ is not given, a new one is created with the default
     # authorization configuration of +AUTH_DSL_FILE+.  If given, may be either
     # a Reader object or a path to a configuration file.
@@ -73,34 +73,34 @@ module Authorization
 
       @role_titles = reader.auth_rules_reader.role_titles
       @role_descriptions = reader.auth_rules_reader.role_descriptions
-      
+
       # {[priv, ctx] => [priv, ...]}
       @rev_priv_hierarchy = {}
       @privilege_hierarchy.each do |key, value|
-        value.each do |val| 
+        value.each do |val|
           @rev_priv_hierarchy[val] ||= []
           @rev_priv_hierarchy[val] << key
         end
       end
     end
-    
+
     # Returns true if privilege is met by the current user.  Raises
     # AuthorizationError otherwise.  +privilege+ may be given with or
     # without context.  In the latter case, the :+context+ option is
     # required.
-    #  
+    #
     # Options:
     # [:+context+]
     #   The context part of the privilege.
     #   Defaults either to the +table_name+ of the given :+object+, if given.
-    #   That is, either :+users+ for :+object+ of type User.  
+    #   That is, either :+users+ for :+object+ of type User.
     #   Raises AuthorizationUsageError if
     #   context is missing and not to be infered.
     # [:+object+] An context object to test attribute checks against.
     # [:+skip_attribute_test+]
-    #   Skips those attribute checks in the 
+    #   Skips those attribute checks in the
     #   authorization rules. Defaults to false.
-    # [:+user+] 
+    # [:+user+]
     #   The user to check the authorization for.
     #   Defaults to Authorization#current_user.
     #
@@ -111,12 +111,12 @@ module Authorization
         :skip_attribute_test => false,
         :context => nil
       }.merge(options)
-      
+
       # Make sure we're handling all privileges as symbols.
       privilege = privilege.is_a?( Array ) ?
                   privilege.flatten.collect { |priv| priv.to_sym } :
                   privilege.to_sym
-      
+
       #
       # If the object responds to :proxy_reflection, we're probably working with
       # an association proxy.  Use 'new' to leverage ActiveRecord's builder
@@ -127,12 +127,12 @@ module Authorization
       if options[:object].respond_to?( :proxy_reflection )
         options[:object] = options[:object].new
       end
-      
+
       options[:context] ||= options[:object] && options[:object].class.table_name.to_sym rescue NoMethodError
-      
+
       user, roles, privileges = user_roles_privleges_from_options(privilege, options)
 
-      # find a authorization rule that matches for at least one of the roles and 
+      # find a authorization rule that matches for at least one of the roles and
       # at least one of the given privileges
       attr_validator = AttributeValidator.new(self, user, options[:object])
       rules = matching_auth_rules(roles, privileges, options[:context])
@@ -141,7 +141,7 @@ module Authorization
           "(roles #{roles.inspect}, privileges #{privileges.inspect}, " +
           "context #{options[:context].inspect})."
       end
-      
+
       # Test each rule in turn to see whether any one of them is satisfied.
       grant_permission = rules.any? do |rule|
         begin
@@ -161,7 +161,7 @@ module Authorization
       end
       true
     end
-    
+
     # Calls permit! but rescues the AuthorizationException and returns false
     # instead.  If no exception is raised, permit? returns true and yields
     # to the optional block.
@@ -172,23 +172,23 @@ module Authorization
     rescue NotAuthorized
       false
     end
-    
-    # Returns the obligations to be met by the current user for the given 
-    # privilege as an array of obligation hashes in form of 
+
+    # Returns the obligations to be met by the current user for the given
+    # privilege as an array of obligation hashes in form of
     #   [{:object_attribute => obligation_value, ...}, ...]
     # where +obligation_value+ is either (recursively) another obligation hash
     # or a value spec, such as
     #   [operator, literal_value]
     # The obligation hashes in the array should be OR'ed, conditions inside
     # the hashes AND'ed.
-    # 
+    #
     # Example
     #   {:branch => {:company => [:is, 24]}, :active => [:is, true]}
-    # 
+    #
     # Options
     # [:+context+]  See permit!
     # [:+user+]  See permit!
-    # 
+    #
     def obligations (privilege, options = {})
       options = {:context => nil}.merge(options)
       user, roles, privileges = user_roles_privleges_from_options(privilege, options)
@@ -198,14 +198,14 @@ module Authorization
         obligation.empty? ? [{}] : obligation
       end.flatten
     end
-    
+
     # Returns the description for the given role.  The description may be
     # specified with the authorization rules.  Returns +nil+ if none was
     # given.
     def description_for (role)
       role_descriptions[role]
     end
-    
+
     # Returns the title for the given role.  The title may be
     # specified with the authorization rules.  Returns +nil+ if none was
     # given.
@@ -229,9 +229,9 @@ module Authorization
 
       (roles.empty? ? [:guest] : roles)
     end
-    
+
     # Returns an instance of Engine, which is created if there isn't one
-    # yet.  If +dsl_file+ is given, it is passed on to Engine.new and 
+    # yet.  If +dsl_file+ is given, it is passed on to Engine.new and
     # a new instance is always created.
     def self.instance (dsl_file = nil)
       if dsl_file or ENV['RAILS_ENV'] == 'development'
@@ -240,7 +240,7 @@ module Authorization
         @@instance ||= new
       end
     end
-    
+
     class AttributeValidator # :nodoc:
       attr_reader :user, :object, :engine
       def initialize (engine, user, object = nil)
@@ -248,13 +248,13 @@ module Authorization
         @user = user
         @object = object
       end
-      
+
       def evaluate (value_block)
         # TODO cache?
         instance_eval(&value_block)
       end
     end
-    
+
     private
     def user_roles_privleges_from_options(privilege, options)
       options = {
@@ -263,7 +263,7 @@ module Authorization
       }.merge(options)
       user = options[:user] || Authorization.current_user
       privileges = privilege.is_a?(Array) ? privilege : [privilege]
-      
+
       raise AuthorizationUsageError, "No user object given (#{user.inspect})" \
         unless user
 
@@ -271,7 +271,7 @@ module Authorization
       privileges = flatten_privileges privileges, options[:context]
       [user, roles, privileges]
     end
-    
+
     def flatten_roles (roles)
       # TODO caching?
       flattened_roles = roles.clone.to_a
@@ -279,7 +279,7 @@ module Authorization
         flattened_roles.concat(@role_hierarchy[role]).uniq! if @role_hierarchy[role]
       end
     end
-    
+
     # Returns the privilege hierarchy flattened for given privileges in context.
     def flatten_privileges (privileges, context = nil)
       # TODO caching?
@@ -300,33 +300,33 @@ module Authorization
         flattened_privileges.concat(@rev_priv_hierarchy[[priv, context]]).uniq! if @rev_priv_hierarchy[[priv, context]]
       end
     end
-    
+
     def matching_auth_rules (roles, privileges, context)
       @auth_rules.select {|rule| rule.matches? roles, privileges, context}
     end
   end
-  
+
   class AuthorizationRule
     attr_reader :attributes, :contexts, :role, :privileges
-    
+
     def initialize (role, privileges = [], contexts = nil)
       @role = role
       @privileges = Set.new(privileges)
       @contexts = Set.new((contexts && !contexts.is_a?(Array) ? [contexts] : contexts))
       @attributes = []
     end
-    
+
     def append_privileges (privs)
       @privileges.merge(privs)
     end
-    
+
     def append_attribute (attribute)
       @attributes << attribute
     end
-    
+
     def matches? (roles, privs, context = nil)
       roles = [roles] unless roles.is_a?(Array)
-      @contexts.include?(context) and roles.include?(@role) and 
+      @contexts.include?(context) and roles.include?(@role) and
         not (@privileges & privs).empty?
     end
 
@@ -334,7 +334,7 @@ module Authorization
       attributes.collect {|attr| attr.to_long_s } * "; "
     end
   end
-  
+
   class Attribute
     # attr_conditions_hash of form
     # { :object_attribute => [operator, value_block], ... }
@@ -342,11 +342,11 @@ module Authorization
     def initialize (conditions_hash)
       @conditions_hash = conditions_hash
     end
-    
+
     def validate? (attr_validator, object = nil, hash = nil)
       object ||= attr_validator.object
       return false unless object
-      
+
       (hash || @conditions_hash).all? do |attr, value|
         attr_value = object_attribute_value(object, attr)
         if value.is_a?(Hash)
@@ -385,7 +385,7 @@ module Authorization
         end
       end
     end
-    
+
     # resolves all the values in condition_hash
     def obligation (attr_validator, hash = nil)
       hash = (hash || @conditions_hash).clone
@@ -503,7 +503,7 @@ module Authorization
       "if_permitted_to #{@privilege.inspect}, #{@attr_hash.inspect}"
     end
   end
-  
+
   # Represents a pseudo-user to facilitate guest users in applications
   class GuestUser
     attr_reader :role_symbols

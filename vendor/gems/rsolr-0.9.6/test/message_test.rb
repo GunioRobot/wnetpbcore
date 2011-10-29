@@ -2,11 +2,11 @@
 require 'helper'
 
 module MessageTestMethods
-  
+
   def builder
     @builder ||= RSolr::Message::Builder.new
   end
-  
+
   # call all of the simple methods...
   # make sure the xml string is valid
   # ensure the class is actually Solr::XML
@@ -87,10 +87,10 @@ module MessageTestMethods
         :name=>'sam'
       }
     ]
-  
+
     message = self.builder.add(data)
     expected = '<add><doc><field name="id">1</field><field name="name">matt</field></doc><doc><field name="id">2</field><field name="name">sam</field></doc></add>'
-  
+
     assert message.to_s=~/<field name="name">matt<\/field>/
     assert message.to_s=~/<field name="name">sam<\/field>/
   end
@@ -101,9 +101,9 @@ module MessageTestMethods
       :id   => 1,
       :name => ['matt1', 'matt2']
     }
-  
+
     result = self.builder.add(data)
-  
+
     assert result.to_s =~ /<field name="name">matt1<\/field>/
     assert result.to_s =~ /<field name="name">matt2<\/field>/
   end
@@ -113,13 +113,13 @@ module MessageTestMethods
     document.add_field('id', 1)
     document.add_field('name', 'matt', :boost => 2.0)
     result = self.builder.add(document)
-  
+
     assert result.to_s =~ /<field name="id">1<\/field>/
-  
+
     # depending on which ruby version, the attributes can be out of place
     # so we need to test both... there's gotta be a better way to do this?
     assert(
-      result.to_s =~ /<field name="name" boost="2.0">matt<\/field>/ || 
+      result.to_s =~ /<field name="name" boost="2.0">matt<\/field>/ ||
       result.to_s =~ /<field boost="2.0" name="name">matt<\/field>/
     )
   end
@@ -136,20 +136,20 @@ module MessageTestMethods
     assert result.to_s =~ /<field name="name">matt1<\/field>/
     assert result.to_s =~ /<field name="name">matt2<\/field>/
   end
-  
+
 end
 
 #####
 
 unless defined?(JRUBY_VERSION)
   class LibxmlMessageTest < RSolrBaseTest
-  
+
     include MessageTestMethods
-  
+
     def setup
       self.builder.adapter = RSolr::Message::Adapter::Libxml.new
     end
-  
+
   end
 end
 
@@ -157,11 +157,11 @@ end
 #####
 
 class BuilderMessageTest < RSolrBaseTest
-  
+
   include MessageTestMethods
-  
+
   def setup
     self.builder.adapter = RSolr::Message::Adapter::Builder.new
   end
-  
+
 end

@@ -20,7 +20,7 @@ package com.elctech {
         public var signature:String;
         public var xamzsecuritytoken:String;
         public var file:String;
-        
+
         /**
          * Addition field
          */

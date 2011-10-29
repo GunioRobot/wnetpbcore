@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'test_helper.rb')
 
 class AuthorizationTest < Test::Unit::TestCase
-  
+
   def test_permit
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -12,14 +12,14 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     }
     engine = Authorization::Engine.new(reader)
-    assert engine.permit?(:test, :context => :permissions, 
+    assert engine.permit?(:test, :context => :permissions,
       :user => MockUser.new(:test_role, :test_role_2))
-    assert !engine.permit?(:test_2, :context => :permissions_2, 
+    assert !engine.permit?(:test_2, :context => :permissions_2,
       :user => MockUser.new(:test_role))
-    assert !engine.permit?(:test, :context => :permissions, 
+    assert !engine.permit?(:test, :context => :permissions,
       :user => MockUser.new(:test_role_2))
   end
-  
+
   def test_permit_context_people
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -30,7 +30,7 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     }
     engine = Authorization::Engine.new(reader)
-    assert engine.permit?(:test, :context => :people, 
+    assert engine.permit?(:test, :context => :people,
       :user => MockUser.new(:test_role))
   end
 
@@ -44,14 +44,14 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     }
     engine = Authorization::Engine.new(reader)
-    assert engine.permit?(:test, :context => :permissions, 
+    assert engine.permit?(:test, :context => :permissions,
       :user => MockUser.new(:test_role))
-    assert engine.permit?(:test, :context => :permissions_2, 
+    assert engine.permit?(:test, :context => :permissions_2,
       :user => MockUser.new(:test_role))
-    assert !engine.permit?(:test, :context => :permissions_3, 
+    assert !engine.permit?(:test, :context => :permissions_3,
       :user => MockUser.new(:test_role))
   end
-  
+
   def test_obligations_without_conditions
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -62,10 +62,10 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     }
     engine = Authorization::Engine.new(reader)
-    assert_equal [{}], engine.obligations(:test, :context => :permissions, 
+    assert_equal [{}], engine.obligations(:test, :context => :permissions,
       :user => MockUser.new(:test_role))
   end
-  
+
   def test_obligations_with_conditions
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -78,11 +78,11 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     }
     engine = Authorization::Engine.new(reader)
-    assert_equal [{:attr => [:is, 1]}], 
-      engine.obligations(:test, :context => :permissions, 
+    assert_equal [{:attr => [:is, 1]}],
+      engine.obligations(:test, :context => :permissions,
           :user => MockUser.new(:test_role, :attr => 1))
   end
-  
+
   def test_obligations_with_conditions_and_empty
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -96,8 +96,8 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     }
     engine = Authorization::Engine.new(reader)
-    assert_equal [{}, {:attr => [:is, 1]}], 
-      engine.obligations(:test, :context => :permissions, 
+    assert_equal [{}, {:attr => [:is, 1]}],
+      engine.obligations(:test, :context => :permissions,
           :user => MockUser.new(:test_role, :attr => 1))
   end
 
@@ -155,7 +155,7 @@ class AuthorizationTest < Test::Unit::TestCase
       engine.obligations(:test, :context => :permission_children_children,
           :user => MockUser.new(:test_role))
   end
-  
+
   def test_guest_user
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -169,7 +169,7 @@ class AuthorizationTest < Test::Unit::TestCase
     assert engine.permit?(:test, :context => :permissions)
     assert !engine.permit?(:test, :context => :permissions_2)
   end
-  
+
   def test_invalid_user_model
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -187,7 +187,7 @@ class AuthorizationTest < Test::Unit::TestCase
       engine.permit?(:test, :context => :permissions, :user => MockDataObject.new)
     end
   end
-  
+
   def test_role_hierarchy
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -202,10 +202,10 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     }
     engine = Authorization::Engine.new(reader)
-    assert engine.permit?(:lower, :context => :permissions, 
+    assert engine.permit?(:lower, :context => :permissions,
       :user => MockUser.new(:test_role))
   end
-    
+
   def test_role_hierarchy_infinity
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -221,10 +221,10 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     }
     engine = Authorization::Engine.new(reader)
-    assert engine.permit?(:lower, :context => :permissions, 
+    assert engine.permit?(:lower, :context => :permissions,
       :user => MockUser.new(:test_role))
   end
-  
+
   def test_privilege_hierarchy
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -240,10 +240,10 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     }
     engine = Authorization::Engine.new(reader)
-    assert engine.permit?(:lower, :context => :permissions, 
+    assert engine.permit?(:lower, :context => :permissions,
       :user => MockUser.new(:test_role))
   end
-  
+
   def test_privilege_hierarchy_without_context
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -259,10 +259,10 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     }
     engine = Authorization::Engine.new(reader)
-    assert engine.permit?(:list, :context => :permissions, 
+    assert engine.permit?(:list, :context => :permissions,
       :user => MockUser.new(:test_role))
   end
-  
+
   def test_attribute_is
     reader = Authorization::Reader::DSLReader.new
     reader.parse %|
@@ -276,13 +276,13 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     |
     engine = Authorization::Engine.new(reader)
-    assert engine.permit?(:test, :context => :permissions, 
+    assert engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role, :test_attr => 1),
               :object => MockDataObject.new(:test_attr => 1))
-    assert engine.permit?(:test, :context => :permissions, 
+    assert engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role, :test_attr => 2),
               :object => MockDataObject.new(:test_attr => 3))
-    assert((not(engine.permit?(:test, :context => :permissions, 
+    assert((not(engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role, :test_attr => 2),
               :object => MockDataObject.new(:test_attr => 1)))))
   end
@@ -306,7 +306,7 @@ class AuthorizationTest < Test::Unit::TestCase
               :user => MockUser.new(:test_role, :test_attr => 2),
               :object => MockDataObject.new(:test_attr => 1))
   end
-  
+
   def test_attribute_contains
     reader = Authorization::Reader::DSLReader.new
     reader.parse %|
@@ -319,10 +319,10 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     |
     engine = Authorization::Engine.new(reader)
-    assert engine.permit?(:test, :context => :permissions, 
+    assert engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role, :test_attr => 1),
               :object => MockDataObject.new(:test_attr => [1,2]))
-    assert !engine.permit?(:test, :context => :permissions, 
+    assert !engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role, :test_attr => 3),
               :object => MockDataObject.new(:test_attr => [1,2]))
   end
@@ -346,7 +346,7 @@ class AuthorizationTest < Test::Unit::TestCase
               :user => MockUser.new(:test_role, :test_attr => 3),
               :object => MockDataObject.new(:test_attr => [1,2]))
   end
-  
+
   def test_attribute_in_array
     reader = Authorization::Reader::DSLReader.new
     reader.parse %|
@@ -360,13 +360,13 @@ class AuthorizationTest < Test::Unit::TestCase
       end
     |
     engine = Authorization::Engine.new(reader)
-    assert engine.permit?(:test, :context => :permissions, 
+    assert engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role),
               :object => MockDataObject.new(:test_attr => 1))
-    assert engine.permit?(:test, :context => :permissions, 
+    assert engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role),
               :object => MockDataObject.new(:test_attr => 3))
-    assert !engine.permit?(:test, :context => :permissions, 
+    assert !engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role),
               :object => MockDataObject.new(:test_attr => 4))
   end
@@ -390,7 +390,7 @@ class AuthorizationTest < Test::Unit::TestCase
               :user => MockUser.new(:test_role),
               :object => MockDataObject.new(:test_attr => 4))
   end
-  
+
   def test_attribute_deep
     reader = Authorization::Reader::DSLReader.new
     reader.parse %|
@@ -410,11 +410,11 @@ class AuthorizationTest < Test::Unit::TestCase
     assert !engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role),
               :object => MockDataObject.new(:test_attr_1 => attr_1_struct.new([3,4])))
-    assert_equal [{:test_attr_1 => {:test_attr_2 => [:contains, 1]}}], 
-      engine.obligations(:test, :context => :permissions, 
+    assert_equal [{:test_attr_1 => {:test_attr_2 => [:contains, 1]}}],
+      engine.obligations(:test, :context => :permissions,
           :user => MockUser.new(:test_role))
   end
-  
+
   def test_attribute_non_block
     reader = Authorization::Reader::DSLReader.new
     reader.parse %|
@@ -430,11 +430,11 @@ class AuthorizationTest < Test::Unit::TestCase
     assert engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role),
               :object => MockDataObject.new(:test_attr => 1))
-    assert !engine.permit?(:test, :context => :permissions, 
+    assert !engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role),
               :object => MockDataObject.new(:test_attr => 2))
   end
-  
+
   def test_attribute_multiple
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -451,7 +451,7 @@ class AuthorizationTest < Test::Unit::TestCase
     assert engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role),
               :object => MockDataObject.new(:test_attr => 1))
-    assert engine.permit?(:test, :context => :permissions, 
+    assert engine.permit?(:test, :context => :permissions,
               :user => MockUser.new(:test_role),
               :object => MockDataObject.new(:test_attr => 2))
   end
@@ -514,7 +514,7 @@ class AuthorizationTest < Test::Unit::TestCase
               :object => MockDataObject.new(:shallow_permission =>
                 MockDataObject.new(:permission => perm_data_attr_2)))
   end
-  
+
   def test_raise_on_if_attribute_hash_on_collection
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -533,7 +533,7 @@ class AuthorizationTest < Test::Unit::TestCase
                      :object => MockDataObject.new(:test_attrs => [1, 2, 3]))
     end
   end
-  
+
   def test_role_title_description
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -552,7 +552,7 @@ class AuthorizationTest < Test::Unit::TestCase
     assert_equal "Test Role Description", engine.description_for(:test_role)
     assert_nil engine.description_for(:test_role_2)
   end
-  
+
   def test_multithread
     reader = Authorization::Reader::DSLReader.new
     reader.parse %{
@@ -562,7 +562,7 @@ class AuthorizationTest < Test::Unit::TestCase
         end
       end
     }
-    
+
     engine = Authorization::Engine.new(reader)
     Authorization.current_user = MockUser.new(:test_role)
     assert engine.permit?(:test, :context => :permissions)

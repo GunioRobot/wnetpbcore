@@ -3,7 +3,7 @@ class Asset < ActiveRecord::Base
   after_save :save_version
 
   attr_protected :uuid
-  
+
   include PbcoreXmlElement
 
   ALL_INCLUDES = [{:identifiers => [:identifier_source]},
@@ -41,8 +41,8 @@ class Asset < ActiveRecord::Base
 
   validates_size_of :identifiers, :minimum => 1, :message => "must have at least one entry"
   validates_size_of :titles, :minimum => 1, :message => "must have at least one entry"
-  
-  xml_subelements "pbcoreAssetDate", :asset_dates  
+
+  xml_subelements "pbcoreAssetDate", :asset_dates
   xml_subelements "pbcoreIdentifier", :identifiers
   to_xml_elt do |obj|
     xml = obj._working_xml
@@ -64,7 +64,7 @@ class Asset < ActiveRecord::Base
   xml_subelements "pbcoreRightsSummary", :rights_summaries
   xml_subelements "pbcoreInstantiation", :instantiations
   xml_subelements "pbcoreExtension", :extensions
-  
+
   def to_xml
     doc = XML::Document.new
     root = XML::Node.new("PBCoreDescriptionDocument")
@@ -79,7 +79,7 @@ class Asset < ActiveRecord::Base
     build_xml(root)
     doc.to_s
   end
-  
+
   def destroy_existing
     return nil unless new_record?
 
@@ -91,7 +91,7 @@ class Asset < ActiveRecord::Base
       other.destroy if other
     end
   end
-  
+
   def title
     titles.map{|t| t.title}.join("; ")
   end
@@ -178,7 +178,7 @@ class Asset < ActiveRecord::Base
     end
     text(:date) do
       (
-       asset_dates.map(&:asset_date) + 
+       asset_dates.map(&:asset_date) +
        instantiations.map{|a| a.instantiation_dates.map{|b| b.date}}
       ).flatten
     end

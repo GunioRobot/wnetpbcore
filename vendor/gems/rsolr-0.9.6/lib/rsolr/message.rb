@@ -1,19 +1,19 @@
 # The Solr::Message class is the XML generation module for sending updates to Solr.
 
 module RSolr::Message
-  
+
   module Adapter
     autoload :Builder, 'rsolr/message/adapter/builder'
     autoload :Libxml, 'rsolr/message/adapter/libxml'
   end
-  
+
   # A class that represents a "doc" xml element for a solr update
   class Document
-    
+
     # "attrs" is a hash for setting the "doc" xml attributes
     # "fields" is an array of Field objects
     attr_accessor :attrs, :fields
-    
+
     # "doc_hash" must be a Hash/Mash object
     # If a value in the "doc_hash" is an array,
     # a field object is created for each value...
@@ -30,17 +30,17 @@ module RSolr::Message
       end
       @attrs={}
     end
-    
+
     # returns an array of fields that match the "name" arg
     def fields_by_name(name)
       @fields.select{|f|f.name==name}
     end
-    
+
     # returns the *first* field that matches the "name" arg
     def field_by_name(name)
       @fields.detect{|f|f.name==name}
     end
-    
+
     #
     # Add a field value to the document. Options map directly to
     # XML attributes in the Solr <field> node.
@@ -53,48 +53,48 @@ module RSolr::Message
     def add_field(name, value, options = {})
       @fields << Field.new(options.merge({:name=>name}), value)
     end
-    
+
   end
-  
+
   # A class that represents a "doc"/"field" xml element for a solr update
   class Field
-    
+
     # "attrs" is a hash for setting the "doc" xml attributes
     # "value" is the text value for the node
     attr_accessor :attrs, :value
-    
+
     # "attrs" must be a hash
     # "value" should be something that responds to #_to_s
     def initialize(attrs, value)
       @attrs = attrs
       @value = value
     end
-    
+
     # the value of the "name" attribute
     def name
       @attrs[:name]
     end
-    
+
   end
-  
+
   class Builder
-    
+
     attr_writer :adapter
-    
+
     # b = Builder.new
     # b.adapter = RSolr::Message::Adapter::LibXML.new
     # b.optimize == '<optimize/>'
     def adapter
       @adapter ||= RSolr::Message::Adapter::Builder.new
     end
-    
+
     # generates "add" xml for updating solr
     # "data" can be a hash or an array of hashes.
     # - each hash should be a simple key=>value pair representing a solr doc.
     # If a value is an array, multiple fields will be created.
     #
     # "add_attrs" can be a hash for setting the add xml element attributes.
-    # 
+    #
     # This method can also accept a block.
     # The value yielded to the block is a Message::Document; for each solr doc in "data".
     # You can set xml element attributes for each "doc" element or individual "field" elements.
@@ -122,28 +122,28 @@ module RSolr::Message
       end
       adapter.add(documents, add_attrs)
     end
-    
+
     # generates a <commit/> message
     def commit(opts={})
       adapter.commit(opts)
     end
-    
+
     # generates a <optimize/> message
     def optimize(opts={})
       adapter.optimize(opts)
     end
-    
+
     # generates a <rollback/> message
     def rollback
       adapter.rollback
     end
-    
+
     # generates a <delete><id>ID</id></delete> message
     # "ids" can be a single value or array of values
     def delete_by_id(ids)
       adapter.delete_by_id(ids)
     end
-    
+
     # generates a <delete><query>ID</query></delete> message
     # "queries" can be a single value or an array of values
     def delete_by_query(queries)

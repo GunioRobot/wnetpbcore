@@ -13,7 +13,7 @@ class AddVisibleFieldToPicklists < ActiveRecord::Migration
     # lame.
     execute("UPDATE identifier_sources SET visible=0 WHERE id=1")
   end
-  
+
   def self.down
     TABLES.each do |table|
       remove_column table, :visible

@@ -30,7 +30,7 @@ class Tempfile < DelegateClass(File)
 
     lock = nil
     n = failure = 0
-    
+
     begin
       Thread.critical = true
 
@@ -79,7 +79,7 @@ class Tempfile < DelegateClass(File)
   def _close	# :nodoc:
     @tmpfile.close if @tmpfile
     @data[1] = @tmpfile = nil
-  end    
+  end
   protected :_close
 
   # Closes the file.  If the optional flag is true, unlinks the file
@@ -144,7 +144,7 @@ class Tempfile < DelegateClass(File)
     def callback(data)	# :nodoc:
       pid = $$
       lambda{
-	if pid == $$ 
+	if pid == $$
 	  path, tmpfile, cleanlist = *data
 
 	  print "removing ", path, "..." if $DEBUG

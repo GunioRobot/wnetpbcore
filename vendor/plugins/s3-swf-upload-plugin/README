@@ -26,13 +26,13 @@ Usage
 
 5. if you want to custom its behavior, here's a more complex example:
 
-  <%= s3_swf_upload_tag(:width => 310, 
-        :height => 40, 
+  <%= s3_swf_upload_tag(:width => 310,
+        :height => 40,
         :success => 'alert("success");',
         :failed => 'alert("failed");',
         :selected => 'alert("selected");',
         :canceled => 'alert("canceled");',
-        :prefix => 's3') 
+        :prefix => 's3')
   %>
 
 Copyright (c) 2008 elctech, released under the MIT license

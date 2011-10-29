@@ -6,8 +6,8 @@
       = field
       = "(#{objkey}):"
   - else
-    %dt 
+    %dt
       = "#{field}:"
   - query = nil
-  %dd 
+  %dd
     = auto_link(h(obj.send(value)).gsub(/\r\n|\r|\n/, "<br />"))

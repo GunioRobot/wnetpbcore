@@ -1,9 +1,9 @@
 - assets_navbar
 
 %div.recordItem.show
-  %div.recordItemTitle      
+  %div.recordItemTitle
     %h2
-      = title @asset.title  
+      = title @asset.title
 
   - if @video
     %div
@@ -18,7 +18,7 @@
 
   %div.recordSection
     %h3 Intellectual Content Section
-    %h4.uuid 
+    %h4.uuid
       Asset <acronym title="Universally Unique Identifier">UUID</acronym>:
       %span
         = @asset.uuid
@@ -75,7 +75,7 @@
 
   - if @asset.extensions.any?
     %div.recordSection
-      %h3 
+      %h3
         Extension Section
       %dl
         = render :partial => "field_array", :locals => {:objs => @asset.extensions, :field => "Extension", :key => :extension_name_str, :value => :extension_value }

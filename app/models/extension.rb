@@ -9,7 +9,7 @@ class Extension < ActiveRecord::Base
   def extension_key
     extension_key_value[0]
   end
-  
+
   def extension_value
     extension_key_value[1]
   end
@@ -19,7 +19,7 @@ class Extension < ActiveRecord::Base
   def extension_key=(key)
     self.extension = key.nil? ? extension_value : "#{key}:#{extension_value}"
   end
-  
+
   def extension_value=(value)
     self.extension = extension_key.nil? ? value : "#{extension_key}:#{value}"
   end
@@ -38,7 +38,7 @@ class Extension < ActiveRecord::Base
     return nil if extension_name.nil?
     extension_name.description
   end
-  
+
   def extension_name=(value)
     @extension_name = value
     self.extension_key = value.extension_key

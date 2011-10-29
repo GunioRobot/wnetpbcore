@@ -16,7 +16,7 @@ class StampingTests < Test::Unit::TestCase  # :nodoc:
 
   def test_person_creation_with_stamped_object
     assert_equal @zeus.id, User.stamper
-    
+
     person = Person.create(:name => "David")
     assert_equal @zeus.id, person.creator_id
     assert_equal @zeus.id, person.updater_id

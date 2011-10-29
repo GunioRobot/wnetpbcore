@@ -2,9 +2,9 @@
 require File.join(File.dirname(__FILE__), '..', 'lib', 'rsolr')
 require 'test/unit'
 
-# 
+#
 class Test::Unit::TestCase
-  
+
   def self.test(name, &block)
     test_name = "test_#{name.gsub(/\s+/,'_')}".to_sym
     defined = instance_method(test_name) rescue false
@@ -17,19 +17,19 @@ class Test::Unit::TestCase
       end
     end
   end
-  
+
 end
 
 class RSolrBaseTest < Test::Unit::TestCase
-  
+
   def assert_class(expected, instance)
     assert_equal expected, instance.class
   end
-  
+
   def default_test
-    
+
   end
-  
+
 end
 
 begin

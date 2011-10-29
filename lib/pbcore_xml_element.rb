@@ -36,7 +36,7 @@ module PbcoreXmlElement
         end
       end
     end
-    
+
     def xml_attributes(*args)
       attributes = map_to_xml_attributes(args)
       from_xml_elt do |record|
@@ -160,7 +160,7 @@ module PbcoreXmlElement
   def updated_string
     "updated at #{updated_at.to_s} by #{(updater_id.nil? || record_updater.nil?) ? "unknown" : record_updater.login}"
   end
-  
+
   # for unit tests
   def dummy_xml_output(container="DUMMY")
     doc = XML::Document.new
@@ -176,7 +176,7 @@ module PbcoreXmlElement
   def doing_xml?
     !(_working_xml.nil?)
   end
-  
+
   def self.included(base)
     base.extend(ClassMethods)
     base.send :include, ActiveSupport::Callbacks

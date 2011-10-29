@@ -119,7 +119,7 @@ module Solitaire
         top_pos, bot_pos = [@deck.index(Card::JokerA), @deck.index(Card::JokerB)].sort
         @deck.replace(
           @deck[(bot_pos + 1) .. -1] +
-          @deck[top_pos .. bot_pos] + 
+          @deck[top_pos .. bot_pos] +
           @deck[0 ... top_pos])
 
         # Perform count cut
@@ -240,7 +240,7 @@ if __FILE__ == $0
       "The key phrase and the key will be printed to STDOUT.") do |word_file|
       options[:keystream] = :random_words
       options[:word_file] = word_file
-    end   
+    end
 
     opts.separator ""
 

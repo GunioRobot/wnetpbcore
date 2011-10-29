@@ -1,7 +1,7 @@
 require 'libxml'
 
 class RSolr::Message::Adapter::Libxml
-  
+
   def add(documents, attributes = {})
     add_node = new_node('add', attributes)
     for document in documents
@@ -55,5 +55,5 @@ class RSolr::Message::Adapter::Libxml
     end
     node
   end
-  
+
 end

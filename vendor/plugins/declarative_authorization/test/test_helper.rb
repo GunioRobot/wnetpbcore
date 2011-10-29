@@ -33,11 +33,11 @@ class MockDataObject
       end
     end
   end
-  
+
   def descends_from_active_record?
     true
   end
-  
+
   def self.table_name
     "mocks"
   end
@@ -53,11 +53,11 @@ end
 class MocksController < ActionController::Base
   attr_accessor :current_user
   attr_writer :authorization_engine
-  
+
   def authorized?
     !!@authorized
   end
-  
+
   def self.define_action_methods (*methods)
     methods.each do |method|
       define_method method do
@@ -66,9 +66,9 @@ class MocksController < ActionController::Base
       end
     end
   end
-  
+
   def logger (*args)
-    Class.new do 
+    Class.new do
       def warn(*args)
         #p args
       end
@@ -90,7 +90,7 @@ class Test::Unit::TestCase
     action = action.to_sym if action.is_a?(String)
     @controller.current_user = user
     @controller.authorization_engine = Authorization::Engine.new(reader)
-    
+
     ((params.delete(:clear) || []) + [:@authorized]).each do |var|
       @controller.instance_variable_set(var, nil)
     end

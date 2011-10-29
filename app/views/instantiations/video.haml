@@ -7,7 +7,7 @@
 %p Please select a video file to upload:
 - form_tag({:action => 'upload_video'}, :method => 'put', :id => 's3_form') do
   %div{ :style => "margin: 0; padding: 0" }<
-    = hidden_field_tag 'uploaded_filename' 
+    = hidden_field_tag 'uploaded_filename'
   %span#s3_swf
     You must <a href="http://www.adobe.com/go/getflashplayer">update</a> your Flash Player to Flash v9.0.1 or higher…
 %p

@@ -2,7 +2,7 @@ class Numeric
 	def value
 		self
 	end
-	
+
 	def to_letter
 		((self-1)%26 + ?A).chr
 	end
@@ -22,7 +22,7 @@ class String
 		# 24 == X
 		res.fill 24, res.length, (5 - res.length % 5) % 5
 	end
-	
+
 	def crypt (deck, decrypt=false)
 		numbers = to_numbers
 		keystream = deck.generate_keystream numbers.length
@@ -33,11 +33,11 @@ class String
 		end
 		result
 	end
-	
+
 	def encrypt (deck)
 		crypt deck, false
 	end
-	
+
 	def decrypt (deck)
 		crypt deck, true
 	end
@@ -67,13 +67,13 @@ class Array
 		slice! pos
 		pos = wrap_down(pos + 1)
 		self[pos, 0] = A
-		
+
 		# step 3: move B joker down 2 cards
 		pos = index B
 		slice! pos
 		pos = wrap_down(pos + 2)
 		self[pos, 0] = B
-		
+
 		# step 4: triple cut
 		first_joker, second_joker = [index(A), index(B)].sort
 		cards_above = slice! 0...first_joker
@@ -81,18 +81,18 @@ class Array
 		cards_below = slice! second_joker+1..-1
 		push *cards_above
 		unshift *cards_below
-		
+
 		# step 5: count cut using the value of the bottom card.
 		#         reinsert above the last card
 		cut = slice! 0, last.value
 		self[-1,0] = cut
-		
+
 		# step 6: find the letter
 		card = self[first.value]
-		
+
 		return Joker===card ? nil : card.value
 	end
-	
+
 	def generate_keystream len
 		(1..len).collect {|i| next_key or redo }
 	end

@@ -26,7 +26,7 @@ class IpBlock < ActiveRecord::Base
   def ranges_str
     ranges.join(", ")
   end
-  
+
   def set_ranges(ip_ranges, netmasks)
     self.ranges = (ip_ranges || []).zip((netmasks || [])).map{|ip_range, netmask| "#{ip_range}/#{netmask}"}
   end

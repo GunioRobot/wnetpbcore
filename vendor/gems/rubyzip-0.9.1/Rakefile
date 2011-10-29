@@ -22,8 +22,8 @@ PKG_FILES.exclude "test/data/generated"
 PKG_FILES.add %w{ lib/**/*.rb }
 
 def clobberFromCvsIgnore(path)
-  CLOBBER.add File.readlines(path+'/.cvsignore').map { 
-    |f| File.join(path, f.chomp) 
+  CLOBBER.add File.readlines(path+'/.cvsignore').map {
+    |f| File.join(path, f.chomp)
   } rescue StandardError
 end
 
@@ -74,8 +74,8 @@ end
 
 desc "Publish package"
 task :ppackage => [:package] do
-  Net::FTP.open("upload.sourceforge.net", 
-                "ftp", 
+  Net::FTP.open("upload.sourceforge.net",
+                "ftp",
                 ENV['USER']+"@"+ENV['HOSTNAME']) {
     |ftpclient|
     ftpclient.passive = true

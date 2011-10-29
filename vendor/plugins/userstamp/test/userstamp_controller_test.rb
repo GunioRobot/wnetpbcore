@@ -35,14 +35,14 @@ class PostsControllerTest < Test::Unit::TestCase
     get :edit, :id => 2
     assert_response :success
 
-    simulate_second_request    
+    simulate_second_request
 
     post :update, :id => 2, :post => {:title => 'Different'}
     assert_response :success
     assert_equal    'Different', assigns["post"].title
     assert_equal    @delynn, assigns["post"].updater
   end
-  
+
   def simulate_second_request
     @second_controller  = PostsController.new
     @second_request     = ActionController::TestRequest.new
@@ -55,14 +55,14 @@ class PostsControllerTest < Test::Unit::TestCase
     parameters = {:id => 1, :post => {:title => 'Different Second'}}
     @second_request.assign_parameters(@second_controller.class.controller_path, 'update', parameters)
     @second_request.session = ActionController::TestSession.new(@second_response.session)
-    
+
     options = @second_controller.send!(:rewrite_options, parameters)
     options.update(:only_path => true, :action => 'update')
-    
+
     url = ActionController::UrlRewriter.new(@second_request, parameters)
     @second_request.set_REQUEST_URI(url.rewrite(options))
     @second_controller.process(@second_request, @second_response)
-    
+
     assert_equal    @nicole, @second_response.template.instance_variable_get("@post").updater
   end
 end
@@ -83,12 +83,12 @@ class UsersControllerTest < Test::Unit::TestCase
     assert_equal    'Different', assigns["user"].name
     assert_equal    @hera, assigns["user"].updater
   end
-  
+
   def test_update_with_multiple_requests
     @request.session  = {:user_id => 2}
     get :edit, :id =>  2
     assert_response :success
-    
+
     simulate_second_request
   end
 
@@ -103,16 +103,16 @@ class UsersControllerTest < Test::Unit::TestCase
 
     parameters = {:id => 2, :user => {:name => 'Different Second'}}
     @second_request.assign_parameters(@second_controller.class.controller_path, 'update', parameters)
-    
+
     @second_request.session = ActionController::TestSession.new(@second_response.session)
-    
+
     options = @second_controller.send!(:rewrite_options, parameters)
     options.update(:only_path => true, :action => 'update')
-    
+
     url = ActionController::UrlRewriter.new(@second_request, parameters)
     @second_request.set_REQUEST_URI(url.rewrite(options))
     @second_controller.process(@second_request, @second_response)
-    
+
     assert_equal    @zeus, @second_response.template.instance_variable_get("@user").updater
   end
 end

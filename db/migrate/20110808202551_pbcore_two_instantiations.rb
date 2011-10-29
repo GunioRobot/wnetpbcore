@@ -10,7 +10,7 @@ class PbcoreTwoInstantiations < ActiveRecord::Migration
         add_column table, col.underscore.to_sym, :text, :default => nil, :null => true
       end
     end
- 
+
     create_table :instantiation_dates do |t|
       t.integer :instantiation_id, :null => false
       t.integer :instantiation_date_type_id

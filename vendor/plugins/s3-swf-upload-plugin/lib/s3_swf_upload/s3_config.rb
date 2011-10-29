@@ -13,7 +13,7 @@ module S3SwfUpload
       @@secret_access_key = config[RAILS_ENV]['secret_access_key']
       @@bucket            = config[RAILS_ENV]['bucket_name']
       @@distro            = config[RAILS_ENV]['cloudfront_distro']
-      
+
       unless @@access_key_id && @@secret_access_key
         raise "Please configure your S3 settings in #{filename}."
       end

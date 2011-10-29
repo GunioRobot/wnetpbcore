@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :templates
-  
+
   [:audience_levels, :audience_ratings, :contributor_roles, :creator_roles,
     :description_types, :format_colors, :format_generations, :format_media_types,
     :format_digitals, :format_physicals, :identifier_sources, :publisher_roles,
@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
   map.ids 'ids', :controller => 'last_used_ids', :action => 'index'
 
   map.set_streamable 'options/streamable/:value', :controller => 'options', :action => 'streamable'
-  
+
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

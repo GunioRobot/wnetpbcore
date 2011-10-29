@@ -14,7 +14,7 @@ module WillPaginate
       enable_actionpack
       enable_activerecord
     end
-    
+
     # mixes in WillPaginate::ViewHelpers in ActionView::Base
     def enable_actionpack
       return if ActionView::Base.instance_methods.include? 'will_paginate'
@@ -25,7 +25,7 @@ module WillPaginate
         ActionController::Base.rescue_responses['WillPaginate::InvalidPage'] = :not_found
       end
     end
-    
+
     # mixes in WillPaginate::Finder in ActiveRecord::Base and classes that deal
     # with associations
     def enable_activerecord

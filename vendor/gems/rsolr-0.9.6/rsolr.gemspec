@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = "RSolr is a Ruby gem for working with Apache Solr!"
   s.has_rdoc = true
   s.authors = ["Matt Mitchell"]
-  
+
   s.files = [
     "examples/http.rb",
     "examples/direct.rb",

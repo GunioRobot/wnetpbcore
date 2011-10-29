@@ -1,15 +1,15 @@
---- !ruby/object:Gem::Specification 
+--- !ruby/object:Gem::Specification
 name: mime-types
-version: !ruby/object:Gem::Version 
+version: !ruby/object:Gem::Version
   version: "1.15"
 platform: ruby
-authors: 
+authors:
 - Austin Ziegler
-autorequire: 
+autorequire:
 bindir: bin
-cert_chain: 
+cert_chain:
 date: 2006-02-12 00:00:00 -05:00
-default_executable: 
+default_executable:
 dependencies: []
 
 description: This library allows for the identification of a file's likely MIME content type. This is release 1.15. The identification of MIME content type is based on a file's filename extensions.
@@ -18,11 +18,11 @@ executables: []
 
 extensions: []
 
-extra_rdoc_files: 
+extra_rdoc_files:
 - README
 - ChangeLog
 - Install
-files: 
+files:
 - lib/mime
 - lib/mime/types.rb
 - tests/tc_mime_type.rb
@@ -37,34 +37,34 @@ files:
 - Install
 has_rdoc: true
 homepage: http://mime-types.rubyforge.org/
-post_install_message: 
-rdoc_options: 
+post_install_message:
+rdoc_options:
 - --title
 - MIME::Types
 - --main
 - README
 - --line-numbers
-require_paths: 
+require_paths:
 - bin
 - lib
-required_ruby_version: !ruby/object:Gem::Requirement 
-  requirements: 
+required_ruby_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">"
-    - !ruby/object:Gem::Version 
+    - !ruby/object:Gem::Version
       version: 0.0.0
-  version: 
-required_rubygems_version: !ruby/object:Gem::Requirement 
-  requirements: 
+  version:
+required_rubygems_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
+    - !ruby/object:Gem::Version
       version: "0"
-  version: 
+  version:
 requirements: []
 
 rubyforge_project: mime-types
 rubygems_version: 1.2.0
-signing_key: 
+signing_key:
 specification_version: 1
 summary: Manages a MIME Content-Type that will return the Content-Type for a given filename.
-test_files: 
+test_files:
 - tests/testall.rb

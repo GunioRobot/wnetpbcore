@@ -1,7 +1,7 @@
 require 'builder'
 
 class RSolr::Message::Adapter::Builder
-  
+
   # shortcut method -> xml = RSolr::Message.xml
   def xml
     ::Builder::XmlMarkup.new
@@ -13,7 +13,7 @@ class RSolr::Message::Adapter::Builder
   # If a value is an array, multiple fields will be created.
   #
   # "add_attrs" can be a hash for setting the add xml element attributes.
-  # 
+  #
   # This method can also accept a block.
   # The value yielded to the block is a Message::Document; for each solr doc in "data".
   # You can set xml element attributes for each "doc" element or individual "field" elements.

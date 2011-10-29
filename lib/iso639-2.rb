@@ -487,7 +487,7 @@ module ISO639
     'zxx' => { :en => 'No linguistic content; Not applicable', :fr => 'pas de contenu linguistique; non applicable' },
     'zza' => { :en => 'Zaza; Dimili; Dimli; Kirdki; Kirmanjki; Zazaki', :fr => 'zaza; dimili; dimli; kirdki; kirmanjki; zazaki' }
   }
-  
+
   FOR_SELECT = ISO639_CODES.collect{ |k, v| [v[:en], k] }.sort
-    
+
 end

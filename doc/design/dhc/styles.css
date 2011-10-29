@@ -3,17 +3,17 @@
 
 a:link {
 	color: #d2849c;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 a:visited {
 	color: #d2849c;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 a:hover {
 	color: #a2c0c0;
-	
+
 }
 
 body {
@@ -27,7 +27,7 @@ body,td,th {
 	vertical-align: bottom;
 	color: #777777;
 	font-style: normal;
-	font-family: Arial Narrow, Arial, Helvetica, sans-serif; 
+	font-family: Arial Narrow, Arial, Helvetica, sans-serif;
 	//background-image: url(images/template/bg_color.jpg);
 	text-decoration: none;
 	vertical-align: top;
@@ -42,14 +42,14 @@ h1 {
 	text-transform: none;
 	font-family: Arial Narrow, Arial, Helvetica, sans-serif;
 	font-size: 19px;
-	line-height: .5px;	
+	line-height: .5px;
 	letter-spacing: 1px;
 }
 
 h2 {
 	color: #333333;
 	font-weight: bold;
-	font-family: Arial Narrow, Arial, Helvetica, sans-serif; 
+	font-family: Arial Narrow, Arial, Helvetica, sans-serif;
 	font-size: 15px;
 	text-transform: none;
 	letter-spacing: .5px;
@@ -59,7 +59,7 @@ h2 {
 h3 {
 	color: #555555;
 	font-weight: bold;
-	font-family: Arial Narrow, Arial, Helvetica, sans-serif; 
+	font-family: Arial Narrow, Arial, Helvetica, sans-serif;
 	font-size: 15px;
 	text-transform: none;
 }
@@ -89,17 +89,17 @@ h3 {
 
 .secondaryLinks {
 	color: #333333;
-	text-decoration: underline;	
+	text-decoration: underline;
 }
 
 a.secondaryLinks:link {
 	color: #666666;
-	text-decoration: underline;	
+	text-decoration: underline;
 }
 
 a.secondaryLinks:hover {
 	color: #a2c0c0;
-	text-decoration: underline;	
+	text-decoration: underline;
 }
 
 /* topbar*/
@@ -126,12 +126,12 @@ a.secondaryLinks:hover {
 }
 a.topnavLinks:link {
 	color: #ffffff;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 a.topnavLinks:hover {
 	color: #a43b81;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 /* login user*/
@@ -154,12 +154,12 @@ a.topnavLinks:hover {
 
 a.userLink:link {
 	color: #ffffff;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 a.userLink:hover {
 	color: #a43b81;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 /* sidebar*/
@@ -200,7 +200,7 @@ a.searchSelected:link{
 .sidebarSearch {
 	padding-left: 7px;
 	background-image: url(images/template/sidebarBg.jpg);
-	float: center;	
+	float: center;
 }
 
 .sidebarSearchLinks {
@@ -220,7 +220,7 @@ a.searchSelected:link{
 .contentTopLinksArea {
 	color: #999999;
 	line-height: 15px;
-	vertical-align: middle;	
+	vertical-align: middle;
 	padding-top: 4px;
 	letter-spacing: 0.5px;
 }
@@ -228,38 +228,38 @@ a.searchSelected:link{
 .contentTopLinks {
 	color: #999999;
 	line-height: 15px;
-	vertical-align: middle;	
+	vertical-align: middle;
 	padding-top: 12px;
 }
 
 a.contentTopLinks:link {
 	color: #d2849c;
-	text-decoration: none;	
+	text-decoration: none;
 	line-height: 5px;
 }
 
 a.contentTopLinks:hover {
 	color: #a2c0c0;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 
 .contentLink {
 	color: #999999;
 	line-height: 15px;
-	vertical-align: middle;	
-	
+	vertical-align: middle;
+
 }
 
 a.contentLink:link {
 	color: #d2849c;
-	text-decoration: none;	
-	
+	text-decoration: none;
+
 }
 
 a.contentLink:hover {
 	color: #a2c0c0;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 .content{
@@ -332,21 +332,21 @@ width:940px;
 	letter-spacing: 1px;
 	text-decoration: none;
 	text-transform: uppercase;
-	
+
 }
 a.footerLink:link {
 	color: #ffffff;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 a.footerLink:hover {
 	color: #a43b81;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 /* holder*/
 .holder{
 	width:100%;
 	background-image: url(images/template/bg_color.jpg);
-	
+
 }

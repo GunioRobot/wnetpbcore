@@ -8,7 +8,7 @@ require 'models/post'
 require 'models/comment'
 
 class CompatibilityStampingTests< Test::Unit::TestCase  # :nodoc:
- fixtures :people, :comments 
+ fixtures :people, :comments
 
   def setup
     Person.stamper = @delynn
@@ -34,7 +34,7 @@ class CompatibilityStampingTests< Test::Unit::TestCase  # :nodoc:
     assert_equal @nicole, comment.creator
     assert_equal @nicole, comment.updater
   end
-  
+
   def test_comment_updating_with_stamped_object
     Person.stamper = @nicole
     assert_equal @nicole.id, Person.stamper

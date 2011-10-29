@@ -1,8 +1,8 @@
 #######################################################################
 #
-# This is the main Nginx configuration file.  
+# This is the main Nginx configuration file.
 #
-# More information about the configuration options is available on 
+# More information about the configuration options is available on
 #   * the English wiki - http://wiki.codemongers.com/Main
 #   * the Russian documentation - http://sysoev.ru/nginx/
 #
@@ -24,7 +24,7 @@ events {
 #----------------------------------------------------------------------
 # HTTP Core Module
 #
-#   http://wiki.codemongers.com/NginxHttpCoreModule 
+#   http://wiki.codemongers.com/NginxHttpCoreModule
 #
 #----------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ http {
     gzip_comp_level 2;
     gzip_proxied any;
     gzip_types       text/html text/plain text/css text/javascript application/x-javascript;
-    
+
     # Load config files from the /etc/nginx/conf.d directory
     #include /etc/nginx/conf.d/*.conf;
 

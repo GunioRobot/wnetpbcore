@@ -6,7 +6,7 @@ class Identifier < ActiveRecord::Base
 
   xml_text_field :identifier
   xml_attributes({"source" => :identifier_source}, "ref", "annotation")
-  
+
   validates_length_of :identifier, :minimum => 1
   validates_presence_of :identifier_source
   def validate

@@ -7,14 +7,14 @@ module ApplicationHelper
   def application_title
     PBCore.config['site_title'] || 'pbcore'
   end
-  
+
   def add_navbar(*link_to_args)
     @have_second_nav = true
     content_for :navbaritems do
       content_tag(:li, link_to_unless_current(*link_to_args))
     end
   end
-  
+
   def opensearch_headers(collection = nil)
     msg = [tag("link",  {:href=>"/assets/opensearch.xml",
       :rel=>"search",
@@ -27,7 +27,7 @@ module ApplicationHelper
     end
     msg.join("\n")
   end
-  
+
   def opensearch_properties(collection)
     collection = collection.results if collection.respond_to?(:results)
     {
@@ -36,7 +36,7 @@ module ApplicationHelper
       "itemsPerPage" => 20
     }
   end
-  
+
   def alternate_views
     @alternates.map{|href,type| tag(:link,:href=>href, :rel=>:alternate, :type=>type)}.join
   end

@@ -88,7 +88,7 @@
     send_request '/my-handler', {:start=>0}, post_data=nil
   moved Connection::Base to Connection
   moved Connection::Adapter::* to Adapter::*
-  
+
 0.7.1 - February 27, 2009
   Added simple query helper module -> RSolr::Query
   Added tests for RSolr::Query
@@ -162,17 +162,17 @@
 	Removed mapping and indexer modules -- seems to me that a general purpose mapping library
 	would be more valuable than an embedded module in RSolr ( RMapper ?)
 	This helps lighten RSolr a bit too
-	
+
 0.6.1 - January 13, 2009
 	Removed SearchExt and mapping until this library gets some real use
 	The only param mapping now is for :page and :per_page via the #search method
 	The Connection::Base #query method does NO mapping now
-	
+
 0.6.0 - January 9, 2009
 	Removed first argument from RSolr.connect, the "adapter_name"
 		The adapter is now set using the :adapter key when passing in options to RSolr.connect:
 		s = RSolr.connect(:adapter=>:direct)
-	
+
 0.5.9 - January 7, 2009
 	Finally brought in the ExtLib Mash classes for incoming params and response hashes from solr
 	  - this gives the ability to access/set values for hashes using strings OR symbols (HashWithIndifferentAccess)
@@ -180,11 +180,11 @@
 	Added more response tests
 	Simplified the RSolr::Response::Base class by supporting only raw/string ruby input
 	Added method to Response::IndexInfo for grabbing a Solr field list
-	
+
 0.5.7 - January 5, 2009
 	Changed name from Solr to RSolr, changed all references to Solr to RSolr
 	Added new tests for RSolr::Mapper and RSolr::Message
-	
+
 0.5.6 - December 30, 2008
 	solr.gemspec cleanedup thanks to shairontoledo on github! :)
 	Added Solr::Response::Query::Facet module with helpers from the delsolr project
@@ -192,9 +192,9 @@
 	Fixed pagination math errors
 	Added new SearchExt helper field: :phrase_filters
 		This will add quoted values to the :filters (fq solr param) hash for doing easier facet requests
-	
+
 	Be sure to check out the new demo app: http://github.com/mwmitchell/consuminator/tree/master
-	
+
 0.5.5 - December 29, 2008
 	Fixed bug where accessing a field by method name failed:
 		docs.each do |doc|
@@ -206,7 +206,7 @@
 		end
 	Removed invalid autoload in Solr module
 	Fixed spelling error in Solr::Connection::SearchExt (thanks to matthewrudy)
-	
+
 0.5.4 - December 29, 2008
 	Re-organized the main Solr adapters, they're now in Solr::Connection::Adapter instead of Solr::Adapter
 	All responses from HTTPClient and Connection::Adapter::Direct return a hash with the following keys:

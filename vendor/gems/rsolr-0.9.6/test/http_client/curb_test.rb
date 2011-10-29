@@ -6,13 +6,13 @@ unless defined?(JRUBY_VERSION)
   require 'http_client/test_methods'
 
   class CurbTest < RSolrBaseTest
-  
+
     def setup
       @c ||= RSolr::HTTPClient::connect(:curb, :url=>URL)
     end
-  
+
     include HTTPClientTestMethods
-  
+
   end
-  
+
 end

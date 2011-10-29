@@ -6,21 +6,21 @@ package com.elctech {
 	import flash.xml.XMLDocument;
 	import flash.xml.XMLNode;
 	import mx.controls.Alert;
-	
+
 	/**
      * This class encapsulates a POST request to S3.
-     * 
+     *
      * After you create an S3PostRequest, invoke S3PostRequest::upload(fileReference:FileReference).
-     * 
+     *
      */
 	public class S3UploadRequest extends EventDispatcher {
-		
+
 		[Event(name="open", type="flash.events.Event.OPEN")]
-        [Event(name="uploadCompleteData", type="flash.events.DataEvent.UPLOAD_COMPLETE_DATA")]        
+        [Event(name="uploadCompleteData", type="flash.events.DataEvent.UPLOAD_COMPLETE_DATA")]
         [Event(name="ioError", type="flash.events.IOErrorEvent.IO_ERROR")]
         [Event(name="securityError", type="flash.events.SecurityErrorEvent.SECURITY_ERROR")]
         [Event(name="progress", type="flash.events.ProgressEvent.PROGRESS")]
-        
+
         private var _accessKeyId:String;
         private var _bucket:String;
         private var _key:String;
@@ -28,12 +28,12 @@ package com.elctech {
         private var _httpStatusErrorReceived:Boolean;
         private var _uploadStarted:Boolean;
         private var _fileReference:FileReference;
-        
+
         private const ENDPOINT:String = "s3.amazonaws.com";
         private const MIN_BUCKET_LENGTH:int = 3;
         private const MAX_BUCKET_LENGTH:int = 63;
-		
-		
+
+
 		/**
          * Creates and initializes a new S3PostRequest object.
          * @param    accessKeyId The AWS access key id to authenticate the request
@@ -42,34 +42,34 @@ package com.elctech {
          * @param    options Options for this request
          */
 		public function S3UploadRequest(options:S3UploadOptions) {
-			
+
             _accessKeyId = options.AWSAccessKeyId;
             _bucket      = options.bucket;
             _key         = options.key;
             _options     = options;
 		}
-		
+
 		private function buildUrl():String {
 
             var canUseVanityStyle:Boolean = canUseVanityStyle(_bucket);
-            
+
             if(_options.Secure!="false" && canUseVanityStyle && _bucket.match(/\./)) {
                 // We cannot use SSL for bucket names containing "."
                 // The certificate won't match "my.bucket.s3.amazonaws.com"
                 throw new SecurityError("Cannot use SSL with bucket name containing '.': " + _bucket);
             }
-            
+
             var postUrl:String = "http" + ((_options.Secure == 'true') ? "s" : "") + "://";
-            
+
             if(canUseVanityStyle) {
                 postUrl += _bucket + "." + ENDPOINT;
             } else {
                 postUrl += ENDPOINT + "/" + _bucket;
             }
-            
+
             return postUrl;
         }
-        
+
         private function canUseVanityStyle(bucket:String):Boolean {
             if( bucket.length < MIN_BUCKET_LENGTH ||
                 bucket.length > MAX_BUCKET_LENGTH ||
@@ -77,17 +77,17 @@ package com.elctech {
                 bucket.match(/\.$/) ) {
                 return false;
             }
-            
+
             // must be lower case
             if(bucket.toLowerCase() != bucket) {
                 return false;
             }
-            
+
             // Check not IPv4-like
             if (bucket.match(/^[0-9]|+\.[0-9]|+\.[0-9]|+\.[0-9]|+$/)) {
                 return false;
             }
-            
+
                 // Check each label
             if(bucket.match(/\./)) {
                 var labels:Array = bucket.split(/\./);
@@ -97,44 +97,44 @@ package com.elctech {
                     }
                 }
             }
-            
+
             return true;
         }
-        
+
         private function loadPolicyFile(postUrl:String):void {
             /*
              * Due to the restrictions imposed by the Adobe Flash security sandbox,
              * the bucket being uploaded to must contain a public-readable crossdomain.xml
              * file that allows access from the domain that served the SWF hosting this code.
-             * 
+             *
              * Read Adobe's documentation on the Flash security sandbox for more information.
-             * 
+             *
              */
-            
+
             Security.loadPolicyFile(postUrl + "/crossdomain.xml");
         }
-		
+
 		/**
          * Initiates a POST upload request to S3
          * @param    fileReference A FileReference object referencing the file to upload to S3.
          */
         public function upload(fileReference:FileReference):void {
-            
+
             if(_uploadStarted) {
                 throw new Error("S3PostRequest object cannot be reused.  Create another S3PostRequest object to send another request to Amazon S3.");
             }
             _uploadStarted = true;
-            
+
             // Save the FileReference object so that it doesn't get GCed.
             // If this happens, we can lose events that should be dispatched.
             _fileReference = fileReference;
-            
+
             var postUrl:String = buildUrl();
             loadPolicyFile(postUrl);
             var urlRequest:URLRequest = new URLRequest(postUrl);
             urlRequest.method = URLRequestMethod.POST;
-            urlRequest.data = buildPostVariables();            
-            
+            urlRequest.data = buildPostVariables();
+
             // set up event handlers *****************************************************
             fileReference.addEventListener(Event.OPEN, onOpen);
             fileReference.addEventListener(ProgressEvent.PROGRESS, onProgress);
@@ -143,37 +143,37 @@ package com.elctech {
             fileReference.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, onUploadCompleteData);
             fileReference.addEventListener(HTTPStatusEvent.HTTP_STATUS, onHttpStatus);
             // *****************************************************************************
-            
+
             // send the request
             fileReference.upload(urlRequest, "file", false);
         }
-        
+
         private function buildPostVariables():URLVariables {
-            
+
             var postVariables:URLVariables = new URLVariables();
-            
+
             postVariables.key             = _key;
             postVariables.acl             = _options.acl;
             postVariables.AWSAccessKeyId  = _accessKeyId;
             postVariables.signature       = _options.signature;
             postVariables["Content-Type"] = _options.ContentType;
             postVariables.policy          = _options.policy;
-            
+
             /**
              * Certain combinations of Flash player version and platform don't handle
              * HTTP responses with the header 'Content-Length: 0'.  These clients do not
              * dispatch completion or error events when such a response is received.
              * Therefore it is impossible to tell when the upload has completed or failed.
-             * 
+             *
              * Flash clients should always set the success_action_status parameter to 201
              * so that Amazon S3 returns a response with Content-Length being non-zero.
-             * 
+             *
              */
             postVariables.success_action_status = "201";
-            
+
             return postVariables;
         }
-        
+
         private function onOpen(event:Event):void {
             this.dispatchEvent(event);
         }
@@ -211,7 +211,7 @@ package com.elctech {
                 this.dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, event.bubbles, event.cancelable, "Amazon S3 returned an error: HTTP status " + event.status.toString() + "."));
             }
         }
-		
+
 		private function isError(responseText:String):Boolean {
             var xml:XMLDocument = new XMLDocument();
             xml.ignoreWhite = true;
@@ -225,5 +225,5 @@ package com.elctech {
         }
 
 	}
-	
+
 }
